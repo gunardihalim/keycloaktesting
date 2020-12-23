@@ -1,0 +1,127 @@
+<style>
+    .btn-header {
+        margin-bottom: 0.7rem;
+        padding: 0.2rem 1.6rem;
+    }
+</style>
+<div class = 'container-fluid'>
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>Payment Method Information</h2>
+                    </div>
+                    <div class = 'col-lg-7 text-right'>
+                        <button type = 'button' class = 'btn btn-danger btn-header'>Delete</button>
+                        <button type = 'button' class = 'btn btn-default btn-header'>History</button>
+                    </div>
+                    <div class="col-12">
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="paymentMethod" class="form-control-label">Payment Method</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "paymentMethod"
+                                   id="paymentMethod"
+                                   ngModel
+                                   [(ngModel)] = 'modelPaymentMethod'
+                                   #paymentMethod = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="bankName" class="form-control-label">Bank Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "bankName"
+                                   id="bankName"
+                                   ngModel
+                                   [(ngModel)] = 'modelBankName'
+                                   #bankName = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="bankBranchName" class="form-control-label">Bank Branch Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "bankBranchName"
+                                   id="bankBranchName"
+                                   ngModel
+                                   [(ngModel)] = 'modelBankBranchName'
+                                   #bankBranchName = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="bankLocation" class="form-control-label">Bank Location</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "bankLocation"
+                                   id="bankLocation"
+                                   ngModel
+                                   [(ngModel)] = 'modelBankLocation'
+                                   #bankLocation = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="bankAddress" class="form-control-label">Bank Address</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "bankAddress"
+                                   id="bankAddress"
+                                   ngModel
+                                   [(ngModel)] = 'modelBankAddress'
+                                   #bankAddress = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="accountName" class="form-control-label">Account Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "accountName"
+                                   id="accountName"
+                                   ngModel
+                                   [(ngModel)] = 'modelAccountName'
+                                   #accountName = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="accountNumber" class="form-control-label">Account Number</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "accountNumber"
+                                   id="accountNumber"
+                                   ngModel
+                                   [(ngModel)] = 'modelAccountNumber'
+                                   #accountNumber = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class = 'col-12 text-right'>
+                <button type = 'button' class = 'w-auto btn btn-primary'>Submit</button>
+            </div>
+        </div>
+        <ng-http-loader 
+            [backgroundColor]="'#0070d2'"
+            spinner="sk-three-bounce">
+        </ng-http-loader>
+    </form>
+</div>

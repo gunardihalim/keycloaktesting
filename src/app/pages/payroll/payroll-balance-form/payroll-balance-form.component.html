@@ -1,0 +1,673 @@
+<style>
+    .btnHover:hover {
+        box-shadow:1px 1px 5px 5px lightcyan;
+    }
+    .invalidError {
+        border-color: red;
+    }
+</style>
+
+<div class = 'position-absolute mt-5 ml-3 mt-lg-0 ml-lg-0' style = 'width:70vw;top:10px;left:20px;z-index:2'>  
+  <div class = 'row' >
+    <div class = 'col-lg-4'>
+      <div class = 'input-group'>  
+        <div class = 'input-group-prepend'>
+            <div class = 'input-group-text font-weight-bold text-white' style="background-color: transparent; border: none;">As of Date</div>
+        </div>
+        <div style="position: relative">
+            <span style="border-left: 2px solid #fff;position: absolute;top: 35%;bottom: 35%;">
+            </span>
+        </div>
+        <div class = 'input-group-prepend'>
+            <div class = 'input-group-text font-weight-bold text-white' style="background-color: transparent; border: none;padding: 0;padding-left: 0.65rem;">
+                <i class="fa fa-calendar-alt"></i>
+            </div>
+        </div>
+          <input type="text"
+                class="form-control font-weight-bold text-white"
+                 [(ngModel)] = "modelEffectiveDateTop"
+                 name = "effectiveDate"
+                 style = 'background-color:transparent; border: none; cursor:pointer'
+                 [ngModelOptions] = "{standalone:true}"
+                 placeholder="effective_date"
+                 ngModel bsDatepicker
+                 #nativeEffectiveDate = 'ngModel'
+                 [bsValue] = 'modelEffectiveDateTop'
+                 [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                 onkeydown = 'return false'>
+          <!-- data-date="" data-date-format="DD MMMM YYYY" -->
+      </div>  
+    </div>
+    <div class = 'col-lg-4 mt-4 ml-9 ml-lg-0 text-sm-right text-md-left'>
+      
+    </div>
+  </div>  
+</div>
+
+
+<div class = 'container-fluid mt--5'>    
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>General</h2>
+                    </div>
+                    <div class = 'col-lg-7 text-right' *ngIf = 'status != "new"'>
+                        <div class ='position-absolute w-100 ml--8' style = 'z-index:3;'
+                            *ngIf="showSkeletonText">
+                            <ngx-skeleton-loader animation="progress"
+                                    count = "1" [theme] = "{height:'32px',width:'95px'}">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class ='position-absolute w-100' style = 'z-index:3;margin-left:-1.5rem;'
+                            *ngIf="showSkeletonText">
+                            <ngx-skeleton-loader animation="progress"
+                                    count = "1" [theme] = "{height:'32px',width:'100px'}">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <button type = 'button' class = 'btn btn-danger py-1' (click) = 'deleteItemId()'>Delete</button>
+                        <button type = 'button' class = 'btn btn-default py-1'>History</button> 
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-12'>
+                        <hr class = 'mt-1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <!-- <div class = 'row text-center pb-4' *ngIf = 'alert_error_msg != "" || alert_success_msg != ""'>
+                    <div class = 'col'>
+                        <span class = 'text-danger font-weight-bold' style = 'font-size:15px'>
+                           {{ alert_error_msg }} </span>
+                        <span class = 'text-primary font-weight-bold' style = 'font-size:15px'>
+                           {{ alert_success_msg }} </span>
+                    </div>
+                </div> -->
+                <div class = 'row box-top' style = 'top:0'>
+                    <div class = 'col-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <!-- <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Balance Name</div>
+                                        </div>
+                                    </div> -->
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for ='balance-name' class = 'form-control-label'>Name</label>
+                                    <input type="text"
+                                            id = 'balance-name'
+                                            class="form-control"
+                                            name = "name"
+                                            #name
+                                            [value]='modelName ? modelName : null'
+                                            (change)='changeProd()'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- ngModel
+                                            [(ngModel)] = 'modelName'
+                                            #name = 'ngModel' -->
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <!-- <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Reporting Name</div>
+                                        </div>
+                                    </div> -->
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for = 'reporting-name' class = 'form-control-label'>Reporting Name</label>
+                                    <input type="text"
+                                            id = 'reporting-name'
+                                            class="form-control"
+                                            name = "reportingName"
+                                            #reportingName
+                                            [value]='modelReportingName ? modelReportingName : null'
+                                            (change)='changeProd()'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- ngModel
+                                            [(ngModel)] = 'modelReportingName'
+                                            #reportingName = 'ngModel' -->
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-6 ml-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <!-- <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Active Status</div>
+                                        </div>
+                                        
+                                        
+                                            <span *ngIf = "!f.valid && f.touched"> Error </span>
+                                    </div> -->
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <div>
+                                            <ngx-skeleton-loader animation="progress"
+                                                    count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                            </ngx-skeleton-loader>    
+                                        </div>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label class = 'form-control-label'>Active</label><br>
+                                    <label class="custom-toggle">
+                                        <!-- <input type="checkbox" checked=""> -->
+                                        <!-- class="form-control align-self-center ml-lg--9" -->
+                                        <input type="checkbox"
+                                            name = "activeStatus"
+                                            ngModel
+                                            [(ngModel)] = 'modelActiveStatus'
+                                            #activeStatus = 'ngModel'
+                                            (change)='changeProd()'
+                                            style = 'height:30px'>
+                                        <span class="custom-toggle-slider rounded-circle" data-label-off="No" data-label-on="Yes"></span>
+                                      </label>
+                                </div>
+                            </div>  
+                        </div>                  
+                    </div>
+                </div>
+            </div> 
+            <!-- Detail -->
+            <div class = 'col mt-3'>
+                <h2>Element</h2>
+                <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+            </div>
+            <div class = 'col-12 mt--4'>
+                <!-- style = 'box-shadow:1px 1px 6px 5px lightgrey;border-radius:10px' -->
+                <div class="dataTables_wrapper py-4">
+                <div class="row">
+                  <div class="col-12 col-sm-4 col-md-4">
+                    <div class ='position-block w-100 d-flex align-items-center' style = 'z-index:11'
+                        *ngIf = 'showSkeletonApiTable'>
+                            <div class = 'd-inline-block'>
+                                <ngx-skeleton-loader animation="progress" 
+                                        [theme] = "{height:'24px',width:'37px'}">
+                                </ngx-skeleton-loader>
+                            </div> 
+                            <div class = 'd-inline-block ml-1'>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                        height:'30px',width:'60px'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <div class = 'd-inline-block ml-1'>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                        height:'24px',width:'48px'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <div class = 'd-inline-block ml-2'>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                        height:'29px',width:'63px'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                    </div>
+                    <div class="dataTables_length" id="datatable_length" style = 'padding-left:0' *ngIf='!showSkeletonApiTable'>
+                      <label>
+                        Show
+                        <select
+                          name="datatable_length"
+                          aria-controls="datatable"
+                          class="form-control form-control-sm"
+                          (change)="entriesChange($event)"
+                        >
+                          <option value="10" [selected]="entries==10">10</option>
+                          <option value="25" [selected]="entries==25">25</option>
+                          <option value="50" [selected]="entries==50">50</option>
+                          <option value="-1" [selected]="entries==-1">All</option>
+                        </select>
+                        entries
+                        <button type = 'button' class = 'btn btn-success btn-sm ml-3'
+                          (click)='createElement()'
+                          style = 'z-index:10'>
+                          Create
+                        </button>
+                        </label>
+                    </div>                    
+                  </div>
+                  <div class="col-12 col-sm-8 col-md-8">
+                    <div id="datatable_filter" class="dataTables_filter" style = 'padding-right:0'>
+                    <div class ='position-block w-100 d-flex align-items-center' style = 'z-index:11'
+                        *ngIf = 'showSkeletonApiTable'>
+                        <div class = 'd-inline-block'>
+                            <ngx-skeleton-loader animation="progress"
+                                    [theme] = "{height:'32px',width:'180px'}">
+                            </ngx-skeleton-loader>
+                        </div> 
+                    </div>
+                      <label *ngIf='!showSkeletonApiTable'>
+                        <input
+                          type="search"
+                          class="form-control form-control-sm"
+                          placeholder="Search records"
+                          aria-controls="datatable"
+                          [(ngModel)] = 'modelFilter'
+                          name = 'nameFilter'
+                          ngModel
+                          #nameFilter = 'ngModel'
+                          (keyup)="filterTable($event)"
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class ='position-block w-100 mt-0' style = 'z-index:12'
+                    *ngIf = 'showSkeletonApiTable'>
+                    <ngx-skeleton-loader animation="progress"
+                            [theme] = "{height:'45px'}">
+                    </ngx-skeleton-loader>
+                    <div class = 'row'>
+                        <div class = 'col-3'>
+                            <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    display:'block',height:'30px'}" count="10">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class = 'col-3'>
+                            <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    display:'block',height:'30px'}" count = "10">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class = 'col-1'>
+                            <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    display:'block',height:'30px'}" count = "10">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class = 'col-1'>
+                            <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    display:'block',height:'30px'}" count = "10">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class = 'col-2'>
+                            <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    display:'block',height:'30px'}" count = "10">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class = 'col-2'>
+                            <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    display:'block',height:'30px'}" count = "10">
+                            </ngx-skeleton-loader>
+                        </div>
+                    </div>
+                </div>
+            
+                <ngx-datatable #tableBalance *ngIf='!showSkeletonApiTable'
+                  id="print-section"
+                  class="bootstrap selection-cell"
+                  [columnMode]="'force'"
+                  [headerHeight]="50"
+                  [footerHeight]="50"
+                  [rowHeight]="'auto'"
+                  [limit]="entries != -1 ? entries:undefined"
+                  [rows]="temp"
+                  [selectionType] ="'single'" 
+                  (activate)="onActivate($event)"
+                  (select)="onSelect($event)"
+                  (sort)="onSort($event)"
+                  style = 'cursor:pointer'
+                >
+                <!-- selectionType = 'multiClick, cell, single' -->
+                <!-- [selected]="selected" -->
+                    <ngx-datatable-column name="Name" prop="elementName" [width]="100" [flexGrow]="3">
+                        <ng-template ngx-datatable-header-template>
+                            <span class = 'ml--2'> Name </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="payElementClassificationsName" [width]="150" [flexGrow]="3">
+                        <ng-template ngx-datatable-header-template>
+                            <span class = 'ml--2'> Classification </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Type" [width]="100" [flexGrow]="2">
+                        <ng-template ngx-datatable-header-template>
+                            <span class = 'ml--2'> Type </span>
+                        </ng-template>
+                        <!-- <ng-template let-column="column" ngx-datatable-header-template>
+                            {{ column.name }}
+                            Tipe
+                        </ng-template> -->
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="ActiveRev" [width]="50" [flexGrow]="1.8">
+                        <ng-template ngx-datatable-header-template>
+                            <span class = 'ml--2'> Active </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Effective Date" [width]="100" [flexGrow]="2">
+                        <ng-template ngx-datatable-header-template>
+                            <span class = 'ml--2'> Effective Date </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Action" [width]="100" [flexGrow]="1.5">
+                        <ng-template ngx-datatable-cell-template let-row='temp' let-value='temp'
+                            let-rowIndex='rowIndex'>
+                            <!-- (click) = 'deleteShow(rowIndex,modalDelete)' -->
+                            <span title = 'Edit' class = 'btn-sm fa fa-edit text-primary btnHover' style = 'color:white'
+                                (click) = 'editShow(rowIndex,modalDefault)'>  </span>
+                            <span title = 'Delete' class = 'btn-sm fa fa-trash-alt text-danger btnHover' style = 'color:white'
+                                (click) = 'deleteShow(rowIndex,modalDelete)'>  </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <!-- <ngx-datatable-column name="Active">
+                        <ng-template ngx-datatable-cell-template let-row='temp'
+                            let-value='temp' let-rowIndex='rowIndex'>
+                            <input type = 'checkbox' [checked]='temp[rowIndex].active'
+                                onclick = 'return false'
+                                class = 'ml-5'>
+                        </ng-template>
+                    </ngx-datatable-column> -->
+                    <ngx-datatable-footer>
+                         <ng-template
+                                ngx-datatable-footer-template
+                                let-rowCount="rowCount"
+                                let-pageSize="pageSize"
+                                let-selectedCount="selectedCount"
+                                let-curPage="curPage"
+                                let-offset="offset"
+                        >
+                            <div style="padding: 5px 10px">
+                                <div>
+                                    {{ rowCount }} Total Records
+                                </div>
+                            </div>
+                            <datatable-pager
+                                    [pagerLeftArrowIcon]="'datatable-icon-left'"
+                                    [pagerRightArrowIcon]="'datatable-icon-right'"
+                                    [pagerPreviousIcon]="'datatable-icon-prev'"
+                                    [pagerNextIcon]="'datatable-icon-skip'"
+                                    [page]="curPage"
+                                    [size]="pageSize"
+                                    [count]="rowCount"
+                                    (change)="tableBalance.onFooterPage($event)"
+                                    [hidden]="!((rowCount / pageSize) > 1)"
+                                    >
+                            </datatable-pager>
+                            
+                        </ng-template>
+                    </ngx-datatable-footer>
+                </ngx-datatable>
+                
+
+                    <ng-http-loader 
+                        [backgroundColor]="'#0070d2'"
+                        spinner="sk-three-bounce">
+                    </ng-http-loader>
+
+                    <!-- MODAL UPDATE -->
+                    <!-- <button
+                        class=" btn btn-block btn-primary mb-3"
+                        data-target="#modal-default"
+                        data-toggle="modal"
+                        type="button"
+                        (click)="openDefaultModal(modalDefault)"
+                    >
+                        Default
+                    </button> -->
+                    <!-- MODAL FOR DELETE -->
+                    <ng-template #modalDelete>
+                        <div class = 'modal-header'>
+                            <h6 class = 'modal-title'>Warning !</h6>
+                            <button class = 'close text-white'
+                                type = 'button'
+                                data-dismiss = 'modal'
+                                (click)='defaultModalDelete.hide()'>x</button>
+                        </div>
+                        <div class = 'modal-body'>
+                            <span> Are you want to delete   "{{ textModalSelect }}" ?</span>
+                        </div>
+                        <div class = 'modal-footer'>
+                            <button class = 'btn btn-danger border-top border-bottom border-left border-right' (click) = 'deleteItem()'>Yes</button>
+                            <button class = 'btn btn-danger border-top border-bottom border-left border-right'
+                                    (click) = 'defaultModalDelete.hide()'>No</button>
+                        </div>
+                    </ng-template>
+
+                    <!-- MODAL FOR DELETE PERMANENT BALANCE TYPES  -->
+                    <ng-template #modalDeleteId>
+                        <div class = 'modal-header'>
+                            <h6 class = 'modal-title'>Warning !</h6>
+                            <button class = 'close text-white'
+                                type = 'button'
+                                data-dismiss = 'modal'
+                                (click)='defaultModalDeleteId.hide()'>x</button>
+                        </div>
+                        <div class = 'modal-body'>
+                            <span> Are you want to delete Balance Types   "{{ modelName }}" ?</span>
+                        </div>
+                        <div class = 'modal-footer'>
+                            <button class = 'btn btn-danger border-top border-bottom border-left border-right' (click) = 'deleteItemIdYes()'>Yes</button>
+                            <button class = 'btn btn-danger border-top border-bottom border-left border-right'
+                                    (click) = 'defaultModalDeleteId.hide()'>No</button>
+                        </div>
+                    </ng-template>
+
+                    <!-- MODAL FOR EDIT / VIEW -->
+                    <ng-template #modalDefault>
+                        <div class=" modal-header">
+                            <h6 class=" modal-title" id="modal-title-default">
+                                {{ statusDetailBaru ? 'New Item' : 'Balance Feed Detail' }}
+                            </h6>
+
+                            <button
+                                aria-label="Close"
+                                type="button"
+                                class=" close"
+                                data-dismiss="modal"
+                                (click)="defaultModal.hide()"
+                            >
+                                <span aria-hidden="true"> × </span>
+                            </button>
+                        </div>
+
+                        <div class=" modal-body">
+                            <!-- <div class = 'row text-center pb-4' *ngIf = 'alert_error_modal_msg != ""'>
+                                <div class = 'col'>
+                                    <span class = 'text-danger font-weight-bold' style = 'font-size:15px'>
+                                       {{ alert_error_modal_msg }}
+                                    </span>
+                                </div>
+                            </div> -->
+                            <div class = 'row'>
+                                <div class = 'col-12'>
+                                    <div class = 'form-group'>
+                                        <div class = 'row'>
+                                            <div class = 'col-12'>
+                                                <label class = 'form-control-label'> Element Name </label>
+                                                <ng-select2 [data]='rowsShowSelect2' [placeholder]='"Select an option..."'
+                                                    [allowClear]='false'
+                                                    [value]='modelElementNameShow'
+                                                    id='select2EleNameShow'
+                                                    (valueChanged)='changeStatus("elementName",$event)'>
+                                                </ng-select2>
+                                                <!-- <select id='selectrElementShow'
+                                                        name = 'elementNameShow'
+                                                        [(ngModel)] = 'modelElementNameShow'
+                                                        ngModel
+                                                        #elementNameShow = 'ngModel'
+                                                        (change)='changeStatus($event)'>
+                                                    <option *ngFor = 'let rowsShow of rowsShow;let i=index'
+                                                        [value]='rowsShow.id' >
+                                                        {{ rowsShow.name }}
+                                                    </option>
+                                                </select> -->
+
+                                                <!-- <div class = 'input-group input-group-md'>
+                                                    <div class = 'input-group-prepend'>
+                                                        -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                                        <div class = 'input-group-text font-weight-normal'
+                                                                style = 'color:grey;font-family:Helvetica;width:150px'>Element Name</div>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class = 'col-12 mt--3'>
+                                    <div class = 'form-group'>
+                                        <div class = 'row'>
+                                            <div class = 'col-12'>
+                                                <label class = 'form-control-label'> Type </label>
+                                                <ng-select2 [data]='arrTypeShowSelect2' [placeholder]='"Select an option..."'
+                                                    [allowClear]='false'
+                                                    [value]='modelTypeShow'
+                                                    id='select2TypeShow'
+                                                    (valueChanged)='changeStatus("typeShow",$event)'>
+                                                </ng-select2>
+                                                <!-- <select id='selectrTypeShow'
+                                                        name='typeShow'
+                                                        ngModel
+                                                        [(ngModel)] = 'modelTypeShow'
+                                                        #typeShow = 'ngModel'>
+                                                    <option value = 'Add'>Add</option>
+                                                    <option value = 'Substract'>Substract</option>
+                                                </select> -->
+                                                <!-- <div class = 'input-group input-group-md'>
+                                                    <div class = 'input-group-prepend'>
+                                                        -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                                        <div class = 'input-group-text font-weight-normal'
+                                                                style = 'color:grey;font-family:Helvetica;width:150px'>Type</div>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class = 'col-12 mt--3'>
+                                    <div class = 'form-group'>
+                                        <label for = 'effective-date-id' class = 'form-control-label'>Effective Date</label>
+                                        <input type="text"
+                                               id="effective-date-id"
+                                               [ngClass]="modelEffectiveDateShow == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                               name = "effectiveDate"
+                                               bsDatepicker
+                                               [bsValue]='modelEffectiveDateShow'
+                                               [value]='modelEffectiveDateShow | date:"dd-MMM-yyyy"'
+                                               autocomplete="off"
+                                               autocapitalize="off"
+                                               spellcheck="false"
+                                               [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                               (bsValueChange)='dateChangeProd($event)'
+                                               [readonly]='readOnlyInput'>
+                                               <!-- ngModel
+                                               [(ngModel)] = 'modelEffectiveDateShow'
+                                               #effectiveDate = 'ngModel' -->
+                                        <!-- <div class = 'input-group input-group-md'>
+                                            <div class = 'input-group-prepend'>
+                                                -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                                <div class = 'input-group-text font-weight-normal'
+                                                        style = 'color:grey;font-family:Helvetica;width:150px'>Effective Date</div>
+                                            </div> -->
+                                        
+                                                <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                        <!-- </div> -->
+                                    </div>
+                                </div>  
+                                <div class = 'col-11 mt--3'>
+                                    <!-- <div class = 'form-group'> -->
+                                    <label class = 'form-control-label'>Active</label> <br>
+                                    <label class = 'custom-toggle'>
+                                        <input type="checkbox"
+                                                name = "activeStatusShow"
+                                                ngModel
+                                                [(ngModel)] = 'modelActiveShow'
+                                                #activeStatusShow = 'ngModel'
+                                                style = 'height:30px'
+                                                >
+                                        <span class = 'custom-toggle-slider rounded circle' data-label-on='Yes' data-label-off='No'></span>
+                                    </label>
+                                        
+                                        <!-- <div class = 'input-group input-group-md'>
+                                            <div class = 'input-group-prepend'>
+                                                -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                                <div class = 'input-group-text font-weight-normal'
+                                                        style = 'color:grey;font-family:Helvetica;width:150px'>Active</div>
+                                            </div>
+                                            
+                                        </div> -->
+                                    <!-- </div> -->
+                                </div>  
+                            </div>
+                        </div>
+
+                        <div class=" modal-footer">
+                        <button class=" btn btn-primary" type="button" (click) = 'updateItem()' [disabled]='disabledButton'>
+                            Save changes
+                        </button>
+
+                        <button
+                            class=" btn btn-link ml-auto"
+                            data-dismiss="modal"
+                            type="button"
+                            (click)="defaultModal.hide()"
+                        >
+                            Close
+                        </button>
+                        </div>
+                    </ng-template>
+                    <!--  -->
+              </div>
+            </div>
+            <div class = 'col-12 mt-5 text-right'>
+                <!-- <div class = 'row'> -->
+                    <!-- <div class = 'col-lg-5 ml-lg-5 text-right'> -->
+                        <div class ='position-absolute w-100 ml--8' style = 'z-index:3;'
+                            *ngIf="showSkeletonText">
+                            <ngx-skeleton-loader animation="progress"
+                                    count = "1" [theme] = "{height:'44px',width:'95px'}">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class ='position-absolute w-100 ml--4' style = 'z-index:3;'
+                            *ngIf="showSkeletonText">
+                            <ngx-skeleton-loader animation="progress"
+                                    count = "1" [theme] = "{height:'44px',width:'100px'}">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <button type = 'button' class = 'w-auto btn btn-danger'
+                             (click) = 'cancelBack()' >Cancel</button>
+                        <button type = 'button' class = 'btn btn-primary'
+                            [disabled]='disabledSubmit' (click) = 'submitProc()' >Submit</button>
+                    <!-- </div> -->
+                <!-- </div> -->
+            </div>
+        </div>
+        <ng-http-loader 
+            [backgroundColor]="'#0070d2'"
+            spinner="sk-three-bounce">
+        </ng-http-loader>
+    </form>
+    <!-- <div style = 'background:url("assets/img/brand/logo.png") no-repeat center / cover;width:200px
+            ;-webkit-box-reflect:below 2px linear-gradient(transparent,white);height:100px;'
+            >
+        good
+    </div> -->
+</div>

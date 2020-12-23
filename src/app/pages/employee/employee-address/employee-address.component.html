@@ -1,0 +1,184 @@
+<style>
+    .btn-header {
+        margin-bottom: 0.7rem;
+        padding: 0.2rem 1.6rem;
+    }
+    .selectr-container.disable-select-box .selectr-selected {
+        background-color: #e9ecef !important;
+        opacity: 1 !important;
+    }
+</style>
+<div class = 'container-fluid' *ngIf = '!aktif_error'>
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>Address Information</h2>
+                    </div>
+                    <div class = 'col-lg-7 text-right'>
+                        <button type = 'button' class = 'btn btn-danger btn-header d-none'>Delete</button>
+                        <button type = 'button' class = 'btn btn-default btn-header d-none'>History</button>
+                    </div>
+                </div>
+                <div class="col-12 px-0">
+                    <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-6 col-lg-6'>
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonText'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="addressType" class="form-control-label">Address Type</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "addressType"
+                                   id="addressType"
+                                   ngModel
+                                   [(ngModel)] = 'modelAddressType'
+                                   #addressType = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-6">
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonText'>
+                                <div>
+                                    <ngx-skeleton-loader animation="progress"
+                                            count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                    </ngx-skeleton-loader>    
+                                </div>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="primary" class="form-control-label">Primary</label><br>
+                            <label class="custom-toggle">
+                                <!-- <input type="checkbox" checked=""> -->
+                                <!-- class="form-control align-self-center ml-lg--9" -->
+                                <input type="checkbox"
+                                       name = "primary"
+                                       id="primary"
+                                       ngModel
+                                       [(ngModel)] = 'modelPrimary'
+                                       #primary = 'ngModel'
+                                       [disabled] = "readOnlyInput"
+                                       style = 'height:30px'>
+                                <span class="custom-toggle-slider rounded-circle" data-label-off="No" data-label-on="Yes"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class = 'col-12 col-lg-6'>
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonText'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="postalCode" class="form-control-label">Postal Code</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "postalCode"
+                                   id="postalCode"
+                                   ngModel
+                                   [(ngModel)] = 'modelPostalCode'
+                                   #postalCode = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class = 'col-12 col-lg-6'>
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonText'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="townCity" class="form-control-label">Town / City</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "townCity"
+                                   id="townCity"
+                                   ngModel
+                                   [(ngModel)] = 'modelTownCity'
+                                   #townCity = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonText'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="province" class="form-control-label">Province</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "province"
+                                   id="province"
+                                   ngModel
+                                   [(ngModel)] = 'modelProvince'
+                                   #province = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonText'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="country" class="form-control-label">Country</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "country"
+                                   id="country"
+                                   ngModel
+                                   [(ngModel)] = 'modelCountry'
+                                   #country = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = 'col-12 text-right'>
+                <button type = 'button' class = 'w-auto btn btn-primary d-none'
+                    >Submit</button>
+            </div>
+        </div>
+        <ng-http-loader 
+            [backgroundColor]="'#0070d2'"
+            spinner="sk-three-bounce">
+        </ng-http-loader>
+    </form>
+</div>
+
+<div class = 'container-fluid' *ngIf = 'aktif_error'>
+    <router-outlet></router-outlet>
+</div>

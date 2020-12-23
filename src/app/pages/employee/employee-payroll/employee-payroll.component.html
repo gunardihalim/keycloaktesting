@@ -1,0 +1,121 @@
+<style>
+    .btn-header {
+        margin-bottom: 0.7rem;
+        padding: 0.2rem 1.6rem;
+    }
+</style>
+<div class = 'container-fluid'>
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>Payroll Information</h2>
+                    </div>
+                    <div class = 'col-lg-7 text-right'>
+                        <button type = 'button' class = 'btn btn-danger btn-header'>Delete</button>
+                        <button type = 'button' class = 'btn btn-default btn-header'>History</button>
+                    </div>
+                    <div class="col-12">
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <label for="bpjsTk" class="form-control-label">BPJS TK</label><br>
+                                    <label class="custom-toggle">
+                                        <!-- <input type="checkbox" checked=""> -->
+                                        <!-- class="form-control align-self-center ml-lg--9" -->
+                                        <input type="checkbox"
+                                               name = "bpjsTk"
+                                               id="bpjsTk"
+                                               ngModel
+                                               [(ngModel)] = 'modelBpjsTk'
+                                               #bpjsTk = 'ngModel'
+                                               style = 'height:30px'>
+                                        <span class="custom-toggle-slider rounded-circle" data-label-off="No" data-label-on="Yes"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <label for="bpjsJp" class="form-control-label">BPJS JP</label><br>
+                                    <label class="custom-toggle">
+                                        <!-- <input type="checkbox" checked=""> -->
+                                        <!-- class="form-control align-self-center ml-lg--9" -->
+                                        <input type="checkbox"
+                                               name = "bpjsJp"
+                                               id="bpjsJp"
+                                               ngModel
+                                               [(ngModel)] = 'modelBpjsJp'
+                                               #bpjsJp = 'ngModel'
+                                               style = 'height:30px'>
+                                        <span class="custom-toggle-slider rounded-circle" data-label-off="No" data-label-on="Yes"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <label for="bpjsKesehatan" class="form-control-label">BPJS Kesehatan</label><br>
+                                    <label class="custom-toggle">
+                                        <!-- <input type="checkbox" checked=""> -->
+                                        <!-- class="form-control align-self-center ml-lg--9" -->
+                                        <input type="checkbox"
+                                               name = "bpjsKesehatan"
+                                               id="bpjsKesehatan"
+                                               ngModel
+                                               [(ngModel)] = 'modelBpjsKesehatan'
+                                               #bpjsKesehatan = 'ngModel'
+                                               style = 'height:30px'>
+                                        <span class="custom-toggle-slider rounded-circle" data-label-off="No" data-label-on="Yes"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-5 ml-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <label for="taxType" class="form-control-label">Tax Type</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name = "taxType"
+                                           id="taxType"
+                                           ngModel
+                                           [(ngModel)] = 'modelTaxType'
+                                           #taxType = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <label for="maritalTaxStatus" class="form-control-label">Marital Tax Status</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name = "maritalTaxStatus"
+                                           id="maritalTaxStatus"
+                                           ngModel
+                                           [(ngModel)] = 'modelMaritalTaxStatus'
+                                           #maritalTaxStatus = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = 'col-12 text-right'>
+                <button type = 'button' class = 'w-auto btn btn-primary'>Submit</button>
+            </div>
+        </div>
+        <ng-http-loader 
+            [backgroundColor]="'#0070d2'"
+            spinner="sk-three-bounce">
+        </ng-http-loader>
+    </form>
+</div>

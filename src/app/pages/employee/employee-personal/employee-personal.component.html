@@ -1,0 +1,1018 @@
+<style>
+    .btn-header {
+        margin-bottom: 0.7rem;
+        padding: 0.2rem 1.6rem;
+    }
+    .invalidError {
+        border-color: red;
+    }
+</style>
+
+<div class = 'container-fluid' *ngIf = '!aktif_error'>
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class="col-6">
+                <h2>Personal Information</h2>
+            </div>
+            <div class="col-6 text-right">
+                <button type = 'button' class = 'btn btn-danger btn-header d-none'>Delete</button>
+                <button type = 'button' class = 'btn btn-default btn-header d-none'>History</button>
+            </div>
+            <div class="col-12">
+                <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+            </div>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="effective-date" class="form-control-label">Effective Date</label>
+                                    <input type="text"
+                                           id="effective-date"
+                                           [ngClass]="modelEffectiveDate == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                           name = "effectiveDate"
+                                           ngModel
+                                           bsDatepicker
+                                           [(ngModel)] = 'modelEffectiveDate'
+                                           [bsValue] = 'modelEffectiveDate'
+                                           [isDisabled]= 'readOnlyInput'
+                                           #effectiveDate = 'ngModel'
+                                           [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                           [readonly]='readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Effective Date</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="date"-->
+<!--                                            id="effective-date"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "effectiveDate"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelEffectiveDate'-->
+<!--                                            #effectiveDate = 'ngModel'-->
+<!--                                            [readonly]='readOnlyInput'> -->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="first-name" class="form-control-label">First Name</label>
+                                    <input type="text"
+                                           id="first-name"
+                                           class="form-control"
+                                           name = "firstName"
+                                           ngModel
+                                           [(ngModel)] = 'modelFirstName'
+                                           #firstName = 'ngModel'
+                                           [readonly]='readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>First Name</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "firstName"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelFirstName'-->
+<!--                                            #firstName = 'ngModel'-->
+<!--                                            [readonly]='readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="middle-name" class="form-control-label">Middle Name</label>
+                                    <input type="text"
+                                           id="middle-name"
+                                           class="form-control"
+                                           name = "middleName"
+                                           ngModel
+                                           [(ngModel)] = 'modelMiddleName'
+                                           #middleName = 'ngModel'
+                                           [readonly]='readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Middle Name</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "middleName"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelMiddleName'-->
+<!--                                            #middleName = 'ngModel'-->
+<!--                                            [readonly]='readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="last-name" class="form-control-label">Last Name</label>
+                                    <input type="text"
+                                           id="last-name"
+                                           class="form-control"
+                                           name = "lastName"
+                                           ngModel
+                                           [(ngModel)] = 'modelLastName'
+                                           #lastName = 'ngModel'
+                                           [readonly]='readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Last Name</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "lastName"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelLastName'-->
+<!--                                            #lastName = 'ngModel'-->
+<!--                                            [readonly]='readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                            <!-- <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Prefix</div>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control"
+                                            name = "prefix"
+                                            ngModel
+                                            [(ngModel)] = 'modelPrefix'
+                                            #prefix = 'ngModel'
+                                            [readonly]='readOnlyInput'>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Suffix</div>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control"
+                                            name = "suffix"
+                                            ngModel
+                                            [(ngModel)] = 'modelSuffix'
+                                            #suffix = 'ngModel'
+                                            [readonly]='readOnlyInput'>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="place-of-birth" class="form-control-label">Place of Birth</label>
+                                    <input type="text"
+                                           id="place-of-birth"
+                                           class="form-control"
+                                           name = "placeOfBirth"
+                                           ngModel
+                                           [(ngModel)] = 'modelPlaceOfBirth'
+                                           #placeOfBirth = 'ngModel'
+                                           [readonly]='readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Place of Birth</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "placeOfBirth"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelPlaceOfBirth'-->
+<!--                                            #placeOfBirth = 'ngModel'-->
+<!--                                            [readonly]='readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="date-of-birth" class="form-control-label">Date of Birth</label>
+                                    <input type="text"
+                                           id="date-of-birth"
+                                           [ngClass]="modelDateOfBirth == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                           name = "dateOfBirth"
+                                           ngModel
+                                           bsDatepicker
+                                           [(ngModel)] = 'modelDateOfBirth'
+                                           [bsValue] = 'modelDateOfBirth'
+                                           [isDisabled]= 'readOnlyInput'
+                                           #placeOfBirth = 'ngModel'
+                                           [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                           [readonly]='readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Date of Birth</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="date"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "dateOfBirth"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelDateOfBirth'-->
+<!--                                            #dateOfBirth = 'ngModel'-->
+<!--                                            [readonly]='readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="age" class="form-control-label">Age</label>
+                                    <input type="number"
+                                           id="age"
+                                           class="form-control"
+                                           name = "age"
+                                           ngModel
+                                           [(ngModel)] = 'modelAge'
+                                           #age = 'ngModel'
+                                           onkeypress = "if(this.value.length==3)return false"
+                                           oninput ="this.value = Math.abs(this.value)"
+                                           [readonly]='readOnlyInput'>
+                                    <span *ngIf = "!age.valid"> Error </span>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Age</div>-->
+<!--                                        </div>-->
+<!--                                        &lt;!&ndash; onkeypress = 'return event.charCode != 45' Minus &ndash;&gt;-->
+<!--                                        <input type="number"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "age"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelAge'-->
+<!--                                            #age = 'ngModel'-->
+<!--                                            onkeypress = "if(this.value.length==3)return false"-->
+<!--                                            oninput ="this.value = Math.abs(this.value)"-->
+<!--                                            [readonly]='readOnlyInput'>-->
+<!--                                            <span *ngIf = "!age.valid"> Error </span>-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'row'>
+<!--                                <div class = 'col-5'>-->
+<!--                                        <div class = 'input-group input-group-md'>-->
+<!--                                            <div class = 'input-group-prepend'>-->
+<!--                                                &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                                <div class = 'input-group-text font-weight-normal'-->
+<!--                                                        style = 'color:grey;font-family:Helvetica;width:150px'>Religion</div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; onkeypress = 'return event.charCode != 45' Minus &ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                </div>-->
+<!--                                <div class = 'col-7'>-->
+<!--                                    <div class = 'form-group'>-->
+<!--                                        <select name = 'religion' ngModel [(ngModel)] = 'modelReligion'-->
+<!--                                                    #religion = 'ngModel' class = 'form-control text-wrap'-->
+<!--                                                        data-live-search="true" id='selectr1'-->
+<!--                                                        data-live-search-placeholder = "Select...."-->
+<!--                                                        [disabled]="readOnlyInputSelect" data-toggle = 'select'>-->
+<!--                                                <option *ngFor = 'let religions of religionFinal;let i = index'-->
+<!--                                                        [value] = "religions">{{religions}}</option>-->
+<!--                                            </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                    <div class="col-12">
+                                        <div class = 'form-group'>
+                                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                                *ngIf='showSkeletonText'>
+                                                <ngx-skeleton-loader animation="progress"
+                                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                                </ngx-skeleton-loader>
+                                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                                    'margin-top':'-9px',height:'46px'}">
+                                                </ngx-skeleton-loader>
+                                            </div>
+                                            <label for="religion" class="form-control-label">Religion</label>
+                                            <input type="text"
+                                                   id="religion"
+                                                   class="form-control"
+                                                   name = "religion"
+                                                   ngModel
+                                                   [(ngModel)] = 'modelReligion'
+                                                   #religion = 'ngModel'
+                                                   [readonly]='readOnlyInput'>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'row'>
+                                    <div class="col-12">
+                                        <div class = 'form-group'>
+                                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                                *ngIf='showSkeletonText'>
+                                                <ngx-skeleton-loader animation="progress"
+                                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                                </ngx-skeleton-loader>
+                                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                                    'margin-top':'-9px',height:'46px'}">
+                                                </ngx-skeleton-loader>
+                                            </div>
+                                            <label for="gender" class="form-control-label">Gender</label>
+                                            <input type="text"
+                                                   id="gender"
+                                                   class="form-control"
+                                                   name = "gender"
+                                                   ngModel
+                                                   [(ngModel)] = 'modelGender'
+                                                   #gender = 'ngModel'
+                                                   [readonly]='readOnlyInput'>
+                                        </div>
+                                    </div>
+<!--                                    <div class = 'col-5'>-->
+<!--                                        <div class = 'form-group'>-->
+<!--                                            <div class = 'input-group input-group-md'>-->
+<!--                                                <div class = 'input-group-prepend'>-->
+<!--                                                    <div class = 'input-group-text font-weight-normal'-->
+<!--                                                            style = 'color:grey;font-family:Helvetica;width:140px'>Gender</div>-->
+<!--                                                </div>-->
+<!--                                                &lt;!&ndash; onkeypress = 'return event.charCode != 45' Minus &ndash;&gt;-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class = 'col-7'>-->
+<!--                                        <select name = 'gender' ngModel [(ngModel)] = 'modelGender'-->
+<!--                                            #religion = 'ngModel' class = 'form-control'-->
+<!--                                            id = 'gender'-->
+<!--                                            [disabled]="readOnlyInputSelect">-->
+<!--                                            <option [value] = 'genderFinal' -->
+<!--                                            *ngFor = 'let genderFinal of genderFinal'>{{genderFinal}}</option>-->
+<!--                                    </select>-->
+<!--                                    </div>-->
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                    <div class = 'col-12 col-lg-7'>
+                        <div class = 'row justify-content-center'>
+                            <!-- <div class = 'col-lg-6'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group'>
+                                        <div class = 'input-group-prepend'>
+                                            <div class = 'input-group-text font-weight-bold'>As of Date</div>
+                                        </div>
+                                        <input type="date"
+                                            class="form-control"
+                                            [(ngModel)] = "modelEffectiveDate"
+                                            name = "effectiveDate"
+                                            [ngModelOptions] = "{standalone:true}"
+                                            placeholder="effective_date">
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class = 'col-lg-12 text-right'>
+
+                            </div>
+                        </div>
+                        <div class = 'row justify-content-center mt-3 mt-lg-4'>
+                            <div class = 'col-12 col-lg-7'>
+                                <div class ='position-absolute w-100' style = 'z-index:5'
+                                    *ngIf='showSkeletonText'>
+                                    <ngx-skeleton-loader animation="progress" [theme] = "{
+                                        'margin-top':'-9px',height:'330px',width:'96%'}">
+                                    </ngx-skeleton-loader>
+                                </div>
+                                <!-- D:\tutorial\idstar_project\GIT-IDStar-HRCentral\src\assets\img\theme\angular.jpg -->
+                                <div class = 'bg-gradient-light w-100 d-block mx-auto' style = 'height:320px'>
+                                    <div class = 'position-relative' style = 'width:100%;height:100%;z-index:2'>
+                                        <img [src] = 'photoProfile' style = 'width:100%;height:100%;object-fit: contain;'>
+                                    </div>
+                                    <div class= 'position-absolute' style = 'left:50%;top:50%;transform:translate(-50%,-50%);z-index:1'>
+                                        <span class = 'fa fa-user text-white' style = 'font-size:150px'></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class = 'row mt-4 ml-lg-5'>
+                            <div class = 'col-lg-9'>
+                                
+                            </div>
+                        </div> -->
+                        <div class = 'row mt-2 ml-lg-5'>
+                                <!-- untuk upload file -->
+<!--                            <div class="col-lg-9">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-12 px-0">-->
+<!--                                        <div class="form-group">-->
+<!--                                            <label for="fileUpload" class="form-control-label">Upload File</label>-->
+<!--                                            <input #fileUpload type="file" id="fileUpload" class="form-control">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class = 'col-lg-9'>
+                                <div class = 'row'>
+                                    <div class="col-12 px-0">
+                                        <div class = 'form-group'>
+                                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                                *ngIf='showSkeletonText'>
+                                                <ngx-skeleton-loader animation="progress"
+                                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                                </ngx-skeleton-loader>
+                                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                                    'margin-top':'-9px',height:'46px'}">
+                                                </ngx-skeleton-loader>
+                                            </div>
+                                            <label for="marital" class="form-control-label">Marital Status</label>
+                                            <input type="text"
+                                                   id="marital"
+                                                   class="form-control"
+                                                   name = "marital"
+                                                   ngModel
+                                                   [(ngModel)] = 'modelMarital'
+                                                   #marital = 'ngModel'
+                                                   [readonly]='readOnlyInput'>
+<!--                                            <select name = 'marital' ngModel [(ngModel)] = 'modelMarital'-->
+<!--                                                    #marital = 'ngModel' class = 'form-control'-->
+<!--                                                    id = 'marital'-->
+<!--                                                    [disabled]="readOnlyInputSelect">-->
+<!--                                                <option value = 'Single'>Single</option>-->
+<!--                                                <option value = 'Married'>Married</option>-->
+<!--                                            </select>-->
+                                        </div>
+                                    </div>
+<!--                                    <div class = 'col-5'>-->
+<!--                                        <div class = 'input-group input-group-md'>-->
+<!--                                            <div class = 'input-group-prepend'>-->
+<!--                                                &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                                <div class = 'input-group-text font-weight-normal'-->
+<!--                                                        style = 'color:grey;font-family:Helvetica;width:140px'>Marital Status</div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; onkeypress = 'return event.charCode != 45' Minus &ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class = 'col-7'>-->
+<!--                                        <div class = 'form-group'>-->
+<!--                                            <select name = 'marital' ngModel [(ngModel)] = 'modelMarital'-->
+<!--                                                    #marital = 'ngModel' class = 'form-control'-->
+<!--                                                    id = 'marital'-->
+<!--                                                    [disabled]="readOnlyInputSelect">-->
+<!--                                                <option value = 'Single'>Single</option>-->
+<!--                                                <option value = 'Married'>Married</option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class = 'row mt--3 ml-lg-5'>
+                            <div class = 'col-lg-9 px-0'>
+                                <div class = 'row'>
+                                    <div class="col-12">
+                                        <div class = 'form-group'>
+                                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                                *ngIf='showSkeletonText'>
+                                                <ngx-skeleton-loader animation="progress"
+                                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                                </ngx-skeleton-loader>
+                                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                                    'margin-top':'-9px',height:'46px',width:'96%'}">
+                                                </ngx-skeleton-loader>
+                                            </div>
+                                            <label for="nationality" class="form-control-label">Nationality</label>
+                                            <input type="text"
+                                                   id="nationality"
+                                                   class="form-control"
+                                                   name = "nationality"
+                                                   ngModel
+                                                   [(ngModel)] = 'modelNationality'
+                                                   #nationality = 'ngModel'
+                                                   [readonly] = 'readOnlyInput'>
+                                        </div>
+                                    </div>
+                                </div>
+<!--                                <div class = 'form-group'>-->
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:140px'>Nationality</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "nationality"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelNationality'-->
+<!--                                            #nationality = 'ngModel'-->
+<!--                                            [readonly] = 'readOnlyInput'>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>Identification Information</h2>
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="nationalId" class="form-control-label">National ID</label>
+                                    <input type="text"
+                                           id="nationalId"
+                                           class="form-control"
+                                           name = "nationalId"
+                                           ngModel
+                                           [(ngModel)] = 'modelNationalId'
+                                           #nationalId = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>National ID</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "nationalId"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelNationalId'-->
+<!--                                            #nationalId = 'ngModel'-->
+<!--                                            [readonly] = 'readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="employeeTaxNo" class="form-control-label">Employee Tax No</label>
+                                    <input type="text"
+                                           id="employeeTaxNo"
+                                           class="form-control"
+                                           name = "employeeTaxNo"
+                                           ngModel
+                                           [(ngModel)] = 'modelEmployeeTaxNo'
+                                           #employeeTaxNo = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Employee Tax No</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "employeeTaxNo"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelEmployeeTaxNo'-->
+<!--                                            #employeeTaxNo = 'ngModel'-->
+<!--                                            [readonly] = 'readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="familyCardNo" class="form-control-label">Family Card No</label>
+                                    <input type="text"
+                                           id="familyCardNo"
+                                           class="form-control"
+                                           name = "familyCardNo"
+                                           ngModel
+                                           [(ngModel)] = 'modelFamilyCardNo'
+                                           #familyCardNo = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Family Card No</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "familyCardNo"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelFamilyCardNo'-->
+<!--                                            #familyCardNo = 'ngModel'-->
+<!--                                            [readonly] = 'readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-5 ml-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="noBpjsTk" class="form-control-label">No. BPJS TK</label>
+                                    <input type="text"
+                                           id="noBpjsTk"
+                                           class="form-control"
+                                           name = "noBpjsTk"
+                                           ngModel
+                                           [(ngModel)] = 'modelNoBpjsTk'
+                                           #noBpjsTk = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:180px'>No. BPJS TK</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "noBpjsTk"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelNoBpjsTk'-->
+<!--                                            #noBpjsTk = 'ngModel'-->
+<!--                                            [readonly] = 'readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>                          
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="noBpjsKesehatan" class="form-control-label">No. BPJS Kesehatan</label>
+                                    <input type="text"
+                                           id="noBpjsKesehatan"
+                                           class="form-control"
+                                           name = "noBpjsKesehatan"
+                                           ngModel
+                                           [(ngModel)] = 'modelNoBpjsKesehatan'
+                                           #noBpjsKesehatan = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:180px'>No. BPJS Kesehatan</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "noBpjsKesehatan"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelNoBpjsKesehatan'-->
+<!--                                            #noBpjsKesehatan = 'ngModel'-->
+<!--                                            [readonly] = 'readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>                          
+                            </div>
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>Contact Information</h2>
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="mobilePhone" class="form-control-label">Mobile Phone</label>
+                                    <input type="text"
+                                           id="mobilePhone"
+                                           class="form-control"
+                                           name = "mobilePhone"
+                                           ngModel
+                                           [(ngModel)] = 'modelMobilePhone'
+                                           #mobilePhone = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Mobile Phone</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "mobilePhone"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelMobilePhone'-->
+<!--                                            #mobilePhone = 'ngModel'-->
+<!--                                            [readonly] = 'readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="otherPhone1" class="form-control-label">Other Phone 1</label>
+                                    <input type="text"
+                                           id="otherPhone1"
+                                           class="form-control"
+                                           name = "otherPhone1"
+                                           ngModel
+                                           [(ngModel)] = 'modelOtherPhone1'
+                                           #otherPhone1 = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Other Phone 1</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "otherPhone1"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelOtherPhone1'-->
+<!--                                            #otherPhone1 = 'ngModel'-->
+<!--                                            [readonly] = 'readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="otherPhone2" class="form-control-label">Other Phone 2</label>
+                                    <input type="text"
+                                           id="otherPhone2"
+                                           class="form-control"
+                                           name = "otherPhone2"
+                                           ngModel
+                                           [(ngModel)] = 'modelOtherPhone2'
+                                           #otherPhone2 = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Other Phone 2</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "otherPhone2"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelOtherPhone2'-->
+<!--                                            #otherPhone2 = 'ngModel'-->
+<!--                                            [readonly] = 'readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-5 ml-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="officeEmail" class="form-control-label">Office Email</label>
+                                    <input type="text"
+                                           id="officeEmail"
+                                           class="form-control"
+                                           name = "officeEmail"
+                                           ngModel
+                                           [(ngModel)] = 'modelOfficeEmail'
+                                           #officeEmail = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Office Email</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "officeEmail"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelOfficeEmail'-->
+<!--                                            #officeEmail = 'ngModel'-->
+<!--                                            [readonly] = 'readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>                          
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="personalEmail" class="form-control-label">Personal Email</label>
+                                    <input type="text"
+                                           id="personalEmail"
+                                           class="form-control"
+                                           name = "personalEmail"
+                                           ngModel
+                                           [(ngModel)] = 'modelPersonalEmail'
+                                           #personalEmail = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+<!--                                    <div class = 'input-group input-group-md'>-->
+<!--                                        <div class = 'input-group-prepend'>-->
+<!--                                            &lt;!&ndash; -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black&ndash;&gt;-->
+<!--                                            <div class = 'input-group-text font-weight-normal'-->
+<!--                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Personal Email</div>-->
+<!--                                        </div>-->
+<!--                                        <input type="text"-->
+<!--                                            class="form-control"-->
+<!--                                            name = "personalEmail"-->
+<!--                                            ngModel-->
+<!--                                            [(ngModel)] = 'modelPersonalEmail'-->
+<!--                                            #personalEmail = 'ngModel'-->
+<!--                                            [readonly] = 'readOnlyInput'>-->
+<!--                                            &lt;!&ndash; <span *ngIf = "!f.valid && f.touched"> Error </span> &ndash;&gt;-->
+<!--                                    </div>-->
+                                </div>                          
+                            </div>
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col-lg-5'>
+                    </div>
+                    <div class = 'col-lg-5 ml-lg-5'>
+                        <button type = 'button' class = 'w-100 btn btn-primary d-none' (click)="submitProc()"
+                            >Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-http-loader 
+            [backgroundColor]="'#0070d2'"
+            spinner="sk-three-bounce">
+        </ng-http-loader>
+    </form>
+</div>
+<div class = 'container-fluid' *ngIf = 'aktif_error'>
+    <router-outlet></router-outlet>
+</div>
+

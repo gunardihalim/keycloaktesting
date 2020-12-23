@@ -1,0 +1,168 @@
+<style>
+    .btn-header {
+        margin-bottom: 0.7rem;
+        padding: 0.2rem 1.6rem;
+    }
+    .invalidError {
+        border-color: red;
+    }
+</style>
+<div class = 'container-fluid' *ngIf = '!aktif_error'>
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>Employment Terms Information</h2>
+                    </div>
+                    <div class = 'col-lg-7 text-right'>
+                        <button type = 'button' class = 'btn btn-danger btn-header'>Delete</button>
+                        <button type = 'button' class = 'btn btn-default btn-header'>History</button>
+                    </div>
+                    <div class="col-12">
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <label class = 'form-control-label' id = 'employment-type-id'>Employment Status</label>
+                                <div class = 'form-group'>
+                                    <select class = 'form-control' 
+                                        name = 'employmentType'
+                                        ngModel
+                                        [(ngModel)]="modelEmploymentType"
+                                        #employmentType = 'ngModel'
+                                        id='selectrEmpType'
+                                        data-live-search='true'
+                                        data-live-search-placeholder = "Select...."
+                                        data-toggle='select'>
+                                        <option *ngFor = 'let arr of arrEmploymentType;let i=index'
+                                            [ngValue]="arr">{{arr}}</option>
+                                    </select>
+                                </div>
+                            <!-- <div class = 'col-5'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:160px'>Employment Type</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class = 'col-7'> -->
+                                <!-- <select name = 'religion' ngModel [(ngModel)] = 'modelReligion'
+                                                    #religion = 'ngModel' class = 'form-control text-wrap'
+                                                        data-live-search="true" id='selectr1'
+                                                        data-live-search-placeholder = "Select...."
+                                                        [disabled]="readOnlyInputSelect" data-toggle = 'select'>
+                                                <option *ngFor = 'let religions of religionFinal;let i = index'
+                                                        [value] = "religions">{{religions}}</option>
+                                            </select> -->
+
+                                <!-- <div class = 'form-group'>
+                                    <select class = 'form-control' 
+                                        name = 'employmentType'
+                                        ngModel
+                                        [(ngModel)]="modelEmploymentType"
+                                        #employmentType = 'ngModel'
+                                        id='selectrEmpType'
+                                        data-live-search='true'
+                                        data-live-search-placeholder = "Select...."
+                                        data-toggle='select'>
+                                        <option *ngFor = 'let arr of arrEmploymentType;let i=index'
+                                            [ngValue]="arr">{{arr}}</option>
+
+                                        <option [ngValue] = "Contract">Contract</option>
+                                        <option [ngValue] = "Permanent">Permanent</option>
+                                        <option [ngValue] = "Ex-Employee">Ex-Employee</option>
+                                    </select> -->
+                                <!-- </div>-->
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <label class = 'form-control-label' id = 'contract-start-date-id'>Contract Start Date</label>
+                                <input type="text"
+                                       id="contract-start-date-id"
+                                       [ngClass]="modelContractStartDate == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                       name = "contractStartDate"
+                                       ngModel
+                                       bsDatepicker
+                                       [(ngModel)] = 'modelContractStartDate'
+                                       [bsValue] = 'modelContractStartDate'
+                                       #contractStartDate = 'ngModel'
+                                       [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                       [readonly]='readOnlyInput'>
+                                <!-- <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:160px'>Contract Start Date</div>
+                                        </div>
+                                        <input type="date"
+                                            class="form-control"
+                                            name = "contractStartDate"
+                                            ngModel
+                                            [(ngModel)] = 'modelContractStartDate'
+                                            #contractStartDate = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <span *ngIf = "!f.valid && f.touched"> Error </span>
+                                    </div> 
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-5 ml-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <label class = 'form-control-label' id = 'contract-end-date-id'>Contract End Date</label>
+                                <input type="text"
+                                       id="contract-end-date-id"
+                                       [ngClass]="modelEffectiveDate == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                       name = "contractEndDate"
+                                       ngModel
+                                       bsDatepicker
+                                       [(ngModel)] = 'modelContractEndDate'
+                                       [bsValue] = 'modelContractEndDate'
+                                       #contractEndDate = 'ngModel'
+                                       [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                       [readonly]='readOnlyInput'>
+                                <!-- <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Contract End Date</div>
+                                        </div>
+                                        <input type="date"
+                                            class="form-control"
+                                            name = "contractEndDate"
+                                            ngModel
+                                            [(ngModel)] = 'modelContractEndDate'
+                                            #contractEndDate = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <span *ngIf = "!f.valid && f.touched"> Error </span>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = 'col-12 text-right'>
+                <button type = 'button' class = 'w-auto btn btn-primary'>Submit</button>
+            </div>
+        </div>
+        <ng-http-loader 
+            [backgroundColor]="'#0070d2'"
+            spinner="sk-three-bounce">
+        </ng-http-loader>
+    </form>
+</div>
+<div class = 'container-fluid' *ngIf = 'aktif_error'>
+    <router-outlet></router-outlet>
+</div>

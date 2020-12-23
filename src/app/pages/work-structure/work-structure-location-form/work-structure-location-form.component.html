@@ -1,0 +1,111 @@
+<div class = 'container-fluid mt--5' >
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>General</h2>
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-lg-6'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px',width:'97%'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for = 'effective-date-id' class = 'form-control-label'>Effective Date</label>
+                                    <input type="text"
+                                           id="effective-date-id"
+                                           [ngClass]="modelEffectiveDate == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                           name = "effectiveDate"
+                                           ngModel
+                                           bsDatepicker
+                                           [(ngModel)] = 'modelEffectiveDate'
+                                           [bsValue] = 'modelEffectiveDate'
+                                           #effectiveDate = 'ngModel'
+                                           [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                           [readonly]='readOnlyInput'
+                                    >
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px',width:'97%'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="locationName" class = 'form-control-label'> Name </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name = "locationName"
+                                           id="locationName"
+                                           ngModel
+                                           [(ngModel)] = 'modelLocationName'
+                                           #positionName = 'ngModel'
+                                           [readonly] = 'readOnlyInput'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-6'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group' style="margin-bottom: 2.5rem;">
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <div>
+                                            <ngx-skeleton-loader animation="progress"
+                                                    count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                            </ngx-skeleton-loader>    
+                                        </div>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="activeStatus" class = 'form-control-label'> Active </label><br>
+                                    <label class = 'custom-toggle'>
+                                        <input type="checkbox"
+                                               name = "activeStatus"
+                                               id="activeStatus"
+                                               ngModel
+                                               [(ngModel)] = 'modelActiveStatus'
+                                               #activeStatus = 'ngModel'
+                                               style = 'height:30px'
+                                               [disabled] = 'readOnlyInputSelect'
+                                        >
+                                        <span class = 'custom-toggle-slider rounded circle' data-label-on='Yes' data-label-off='No'></span>
+                                    </label>
+                                </div>                           
+                            </div>
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+            
+            <div class = 'col-12 text-right'>
+                <!-- <div class = 'row'>
+                    <div class = 'col-lg-6'></div>
+                    <div class = 'col-lg-6 ml-lg-9'> -->
+                <!-- <button type = 'button' class = 'btn btn-danger' (click) = 'cancelBack()' >Cancel</button>
+                <button type = 'button' class = 'w-auto btn btn-primary'>Submit</button> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+            </div>
+        </div>
+    </form>
+</div>

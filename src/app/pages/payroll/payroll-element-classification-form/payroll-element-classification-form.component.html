@@ -1,0 +1,268 @@
+<style>
+    .btn-header {
+        margin-bottom: 0.7rem;
+        padding: 0.2rem 1.6rem;
+    }
+    .invalidError {
+        border-color: red;
+    }
+    pdf-viewer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(5px 5px 5px #222222);
+    height: 1000px;
+    }
+
+    textarea {
+        margin-top: 15px; 
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+</style>
+<div class = 'container-fluid mt--5'>
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>General</h2>
+                    </div>
+                    <div class = 'col-lg-7 text-right'>
+                        <div class ='position-absolute w-100' style = 'z-index:3;margin-left:-2rem;'
+                            *ngIf="showSkeletonText && status !== 'new'">
+                            <ngx-skeleton-loader animation="progress"
+                                    count = "1" [theme] = "{height:'32px',width:'110px'}">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <button *ngIf="status !== 'new'"
+                                type = 'button'
+                                class = 'btn btn-danger btn-md py-1 btn-header'
+                                (click)="deleteItemId()"
+                                >Delete</button>
+                        <button type = 'button' class = 'btn btn-default btn-md py-1 btn-header d-none'>History</button>
+                    </div>
+                    <div class="col-12">
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row text-center pb-4' *ngIf = 'alert_error_msg != "" || alert_success_msg != ""'>
+                    <div class = 'col'>
+                        <span class = 'text-danger font-weight-bold' style = 'font-size:15px'>
+                           {{ alert_error_msg }} </span>
+                        <span class = 'text-primary font-weight-bold' style = 'font-size:15px'>
+                           {{ alert_success_msg }} </span>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for = 'effective-date-id' class = 'form-control-label'>Effective Date</label>
+                                    <input type="text"
+                                           id="effective-date-id"
+                                           [ngClass]="modelEffectiveDate == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                           name = "effectiveDate"
+                                           bsDatepicker
+                                           [bsValue]='modelEffectiveDate'
+                                           [value]='modelEffectiveDate | date:"dd-MMM-yyyy"'
+                                           autocomplete="off"
+                                           autocapitalize="off"
+                                           spellcheck="false"
+                                           [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                           (bsValueChange)='dateChangeProd($event)'
+                                           [readonly]='readOnlyInput'>
+                                           <!-- ngModel
+                                           [(ngModel)] = 'modelEffectiveDate'
+                                           #effectiveDate = 'ngModel'
+                                           (ngModelChange)='changeDateProc()' -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="name" class = 'form-control-label'> Name </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name = "name"
+                                           id="name"
+                                           #name
+                                           [value]='modelName ? modelName : null'
+                                           (change)='changeProc()'
+                                           [readonly] = 'readOnlyInput'>
+                                           <!-- ngModel
+                                           [(ngModel)] = 'modelName'
+                                           (ngModelChange)="changeProc()"
+                                           #name = 'ngModel' -->
+                                </div>
+                            </div>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="description" class = 'form-control-label'> Description </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name = "description"
+                                           id="description"
+                                           #description
+                                           [value]='modelDescription ? modelDescription : null'
+                                           (change)='changeProc()'
+                                           [readonly] = 'readOnlyInput' >
+                                           <!-- ngModel
+                                           [(ngModel)] = 'modelDescription'
+                                           (ngModelChange)="changeProc()"
+                                           #description = 'ngModel' -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-6 ml-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group' style="margin-top: 1rem;margin-bottom: 2.5rem;">
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <div>
+                                            <ngx-skeleton-loader animation="progress"
+                                                    count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                            </ngx-skeleton-loader>    
+                                        </div>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="activeStatus" class = 'form-control-label'> Active </label><br>
+                                    <label class = 'custom-toggle'>
+                                        <input type="checkbox"
+                                               name = "activeStatus"
+                                               id="activeStatus"
+                                               ngModel
+                                               [(ngModel)] = 'modelActiveStatus'
+                                               (ngModelChange)="changeProc()"
+                                               #activeStatus = 'ngModel'
+                                               (change)='changeProc()'
+                                               style = 'height:30px'
+                                        >
+                                        <span class = 'custom-toggle-slider rounded circle' data-label-on='Yes' data-label-off='No'></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group' style="margin-bottom: 2.5rem;">
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="priorityStart" class = 'form-control-label'> Priority Start </label>
+                                    <input type="number"
+                                           class="form-control"
+                                           name = "priorityStart"
+                                           id="priorityStart"
+                                           #priorityStart
+                                           [value]='modelPriorityStart ? modelPriorityStart : null'
+                                           (change)='changeProc()'
+                                           oninput = 'this.value = Math.abs(this.value)'
+                                           onkeypress = 'return event.charCode != 45 && this.value.length < 5'
+                                           [readonly] = 'readOnlyInput'>
+                                           <!-- ngModel
+                                           [(ngModel)] = 'modelPriorityStart'
+                                           (ngModelChange)="changeProc()"
+                                           #priorityStart = 'ngModel' -->
+                                </div>                          
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="priorityEnd" class = 'form-control-label'> Priority End </label>
+                                    <input type="number"
+                                           class="form-control"
+                                           name = "priorityEnd"
+                                           id="priorityEnd"
+                                           #priorityEnd
+                                           [value]='modelPriorityEnd ? modelPriorityEnd : null'
+                                           oninput = 'this.value = Math.abs(this.value)'
+                                           onkeypress = 'return event.charCode != 45 && this.value.length < 5'
+                                           [readonly] = 'readOnlyInput'>
+                                           <!-- ngModel
+                                           [(ngModel)] = 'modelPriorityEnd'
+                                           (ngModelChange)="changeProc()"
+                                           #priorityEnd = 'ngModel'
+                                           (change)='changeProc()' -->
+                                </div>                          
+                            </div>
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-12">
+                <textarea [(ngModel)] = "pdfSource"></textarea>
+
+                <pdf-viewer [src]="pdfSource"
+                            [original-size]="false"
+                ></pdf-viewer>
+            </div> -->
+            <div class = 'col-12 text-right'>
+                <div class ='position-absolute w-100 ml--8' style = 'z-index:3;'
+                    *ngIf="showSkeletonText">
+                    <ngx-skeleton-loader animation="progress"
+                            count = "1" [theme] = "{height:'44px',width:'95px'}">
+                    </ngx-skeleton-loader>
+                </div>
+                <div class ='position-absolute w-100 ml--4' style = 'z-index:3;'
+                    *ngIf="showSkeletonText">
+                    <ngx-skeleton-loader animation="progress"
+                            count = "1" [theme] = "{height:'44px',width:'100px'}">
+                    </ngx-skeleton-loader>
+                </div>
+                <button type = 'button' class = 'btn btn-danger' (click) = 'cancelBack()' >Cancel</button>
+                <button type = 'button' class = 'w-auto btn btn-primary' (click) = 'submitProc()' >Submit</button>
+            </div>
+        </div>
+        <ng-http-loader 
+            [backgroundColor]="'#0070d2'"
+            spinner="sk-three-bounce">
+        </ng-http-loader>
+    </form>
+</div>

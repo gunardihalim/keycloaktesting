@@ -1,0 +1,318 @@
+<style>
+  .btnHover:hover {
+      box-shadow:1px 1px 5px 5px lightcyan;
+  }
+</style>
+<div class = 'position-absolute mt-5 ml-4 mt-lg-0 ml-lg-0' style = 'width:70vw;top:10px;left:20px;z-index:2'>
+  <div class = 'row' >
+    <div class = 'col-lg-4'>
+      <!-- <label style = 'display:inline-block;position:relative;left:0%'>
+          <div class = 'custom-control custom-checkbox'>
+            <input type = 'checkbox' class = 'custom-control-input' 
+                name = 'allDate'
+                ngModel
+                [(ngModel)]='modelAllDate'
+                [checked] = 'checkAllDate()'
+                (click) = 'loadAllDate()'
+                #allDate = 'ngModel'>
+            <span class = 'custom-control-label' style = 'color:white;font-weight:bold;user-select:none'> 
+                All Date </span>
+          </div>
+        </label> -->
+      <!-- <label class = 'ml-4 ml-sm-9 ml-md-6' style = 'display:inline-block;position:relative'> -->
+      <!-- <label style = 'display:inline-block;position:relative'>
+        <div class = 'custom-control custom-checkbox pb-2'>
+          <input type = 'checkbox' class = 'custom-control-input' 
+            ngModel
+            [(ngModel)]='modelActiveStatus'
+            name = 'activeStatus'
+            #activeStatus = 'ngModel'
+            id = "customActive"
+            (click) = 'activeStatusProc()'>
+          <label class = 'custom-control-label' for ="customActive" style = 'color:white;font-weight:bold;user-select:none'> 
+                Active Status</label>
+        </div>
+      </label> -->
+        <div class = 'input-group' style="box-shadow: none">
+            <div class = 'input-group-prepend'>
+                <div class = 'input-group-text font-weight-bold text-white' style="background-color: transparent; border: none;">As of Date</div>
+            </div>
+            <div style="position: relative">
+                <span style="border-left: 2px solid #fff;position: absolute;top: 35%;bottom: 35%;">
+                </span>
+            </div>
+            <div class = 'input-group-prepend'>
+                <div class = 'input-group-text font-weight-bold text-white' style="background-color: transparent; border: none;padding: 0;padding-left: 0.65rem;">
+                    <i class="fa fa-calendar-alt"></i>
+                </div>
+            </div>
+            <input type="text"
+                   class="form-control font-weight-bold text-white"
+                   [(ngModel)] = "modelEffectiveDate"
+                   name = "nativeEffectiveDate"
+                   style="background-color: transparent; border: none;"
+                   [ngModelOptions] = "{standalone:true}"
+                   placeholder="effective_date"
+                   ngModel bsDatepicker
+                   #nativeEffectiveDate = 'ngModel'
+                   [bsValue] = 'modelEffectiveDate'
+                   [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                   (keyup)='changeDate($event)'
+                   (ngModelChange)='changeDate()'
+                   [readonly] = 'readOnlyAsOfDate'>
+            <!-- data-date="" data-date-format="DD MMMM YYYY" -->
+        </div>
+    </div>
+    <div class = 'col-lg-4 mt-4 ml-9 ml-lg-0 text-sm-right text-md-left'>
+      
+    </div>
+  </div>  
+</div>
+
+<div class=" header pb-6">
+    <!-- urlEndParse => untuk menu children after Parent (eg: 'Employee') -->
+    <global-breadcrumb-component  [arrBreadCrumb]="arrBreadCrumb"
+      (backTableMainMenu)="backTable($event)">
+    </global-breadcrumb-component>
+
+    <!-- <div class=" container-fluid bg-gradient-info">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+            <div class=" col-lg-6 col-7">
+                <h6 class=" h2 text-white d-inline-block mb-0"><i class=" fas fa-home"> </i></h6>
+                <nav aria-label="breadcrumb"
+                     class=" d-none d-md-inline-block ml-md-4">
+                    <ol class=" breadcrumb breadcrumb-links breadcrumb-dark">
+                        <li class=" breadcrumb-item">
+                            <a href="javascript:void(0)"> Payroll </a>
+                        </li>
+
+                        <li class=" breadcrumb-item">
+                            <a (click)="backTable()" style="cursor: pointer;"> Process & Result </a>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div> 
+  </div> -->
+</div>
+
+<div class = 'container-fluid mt--5'>
+<div *ngIf = 'aktif_table'>
+    <!-- <div class = 'row mt--5'>
+        <h2 class = 'col-12'>Balance</h2>
+        <hr style = 'width:90%' class = 'mt--2 ml-3'>
+    </div> -->
+    <div class = 'row'>
+        <div class = 'col'>
+            <div class="dataTables_wrapper py-4"
+                style = 'box-shadow:1px 1px 6px 5px lightgrey;border-radius:10px'>
+                <div class="row">
+                  <div class="col-12 col-sm-4 col-md-4">
+                    <div class="dataTables_length" id="datatable_length">
+                      <label>
+                        Show
+                        <select
+                          name="datatable_length"
+                          aria-controls="datatable"
+                          class="form-control form-control-sm"
+                          (change)="entriesChange($event)"
+                        >
+                          <option value="10" [selected]="entries==10">10</option>
+                          <option value="25" [selected]="entries==25">25</option>
+                          <option value="50" [selected]="entries==50">50</option>
+                          <option value="-1" [selected]="entries==-1">All</option>
+                        </select>
+                        entries
+                        <button type="button" (click)='elementClassLoad()' class="btn btn-primary btn-sm ml-2" style="z-index: 10;">
+                          <span title = 'Refresh' class = 'fas fa-sync-alt' style = 'color:white'></span>
+                        </button>
+                        <button type = 'button' class = 'btn btn-success btn-sm ml-2'
+                          (click)='createElement()'
+                          style = 'z-index:10'>
+                          Create
+                        </button>
+                        </label>
+                    </div>                    
+                  </div>
+                  <div class="col-12 col-sm-8 col-md-8">
+                    <div id="datatable_filter" class="dataTables_filter" style = 'padding-right:10px'>
+                      <label>
+                        <input
+                          type="search"
+                          class="form-control form-control-sm"
+                          placeholder="Search records"
+                          aria-controls="datatable"
+                          (keyup)="filterTable($event)"
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+            
+                <ngx-datatable #tableBalance
+                  id="print-section"
+                  class="bootstrap selection-cell"
+                  [columnMode]="'force'"
+                  [headerHeight]="10"
+                  [footerHeight]="50"
+                  [rowHeight]="'auto'"
+                  [limit]="entries != -1 ? entries:undefined"
+                  [rows]="temp"
+                  [selectionType] ="'single'" 
+                  (activate)="onActivate($event)"
+                  (sort) = "onSort($event)"
+                  style = 'cursor:pointer;-webkit-user-select: text; user-select: text;'
+                  >
+                <!-- [scrollbarH] = 'true' -->
+                <!-- (sort)="onSort($event)" -->
+                <!-- (select)="onSelect($event)" -->
+                <!-- selectionType = 'multiClick, cell, single' -->
+                <!-- [selected]="selected" -->
+                    <ngx-datatable-column name="No" [width]='50' [flexGrow]='0.3' [cellClass]="'text-left'">
+                      <ng-template ngx-datatable-header-template>
+                          <span class = 'ml--2'>No.</span>
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-row = 'temp' let-value='temp' let-rowIndex='rowIndex'>
+                        <span class="blockText">{{ temp[rowIndex].no }} </span>
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Request No" [width]='200' [flexGrow]='0.8' [cellClass]="'text-left'">
+                      <ng-template ngx-datatable-header-template>
+                          <span class = 'ml--2'>Request No</span>
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-row = 'temp' let-value='temp' let-rowIndex='rowIndex'>
+                        <span (click)='invokeId(temp[rowIndex].id,temp[rowIndex].payPayrollGroupId,
+                        temp[rowIndex].periodEndDate,temp[rowIndex].payRunTypeId,
+                        temp[rowIndex].cutOffDate,temp[rowIndex].payslipDate,temp[rowIndex].requestNo)' style = 'text-decoration: underline;'
+                        class="blockText">{{ temp[rowIndex].requestNo }} </span>
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Payroll Name" [sortable]="true" [width]='150' [flexGrow]='0.5'>
+                        <!-- <ng-template ngx-datatable-header-template let-sort="sortFn" let-sortDir="sortDir"> -->
+                        <ng-template ngx-datatable-header-template>
+                          <span class = 'ml--2'>Payroll Group</span>
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-row='temp' let-value='temp'
+                            let-rowIndex ='rowIndex'>
+                            <!-- {{ temp[rowIndex].balanceName }} -->
+                            <span class = 'blockText'>{{ temp[rowIndex].payrollName }}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Run Type" [width]='100' [flexGrow]='0.5'>
+                      <ng-template ngx-datatable-header-template>
+                        <span class = 'ml--2'>Run Type</span>
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-row = 'temp' let-value='temp' let-rowIndex='rowIndex'>
+                        <span class = 'blockText'>{{ temp[rowIndex].runType }} </span>
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Payslip Date" [width]='100' [flexGrow]='0.5'>
+                      <ng-template ngx-datatable-header-template>
+                        <span class = 'ml--2'>Payslip</span>
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-row = 'temp' let-value='temp' let-rowIndex='rowIndex'>
+                        <span class = 'blockText'>{{ temp[rowIndex].payslipDate | date: 'dd-MMM-yyyy' }} </span>
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Cutoff Date" [width]='100' [flexGrow]='0.5'>
+                      <ng-template ngx-datatable-header-template>
+                        <span class = 'ml--2'>Cut Off</span>
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-row = 'temp' let-value='temp' let-rowIndex='rowIndex'>
+                        <span class = 'blockText'>{{ temp[rowIndex].cutOffDate | date: 'dd-MMM-yyyy' }} </span>
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="periodEndDate" [sortable]="true" [width]='100' [flexGrow]='0.5'>
+                      <ng-template ngx-datatable-header-template>
+                      <!-- <ng-template ngx-datatable-header-template let-sort="sortFn" let-sortDir="sortDir"> -->
+                        <span class = 'ml--2'>Period Start</span>
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-row = 'temp' let-value='temp' let-rowIndex='rowIndex'>
+                        <span class = 'blockText'>{{ temp[rowIndex].periodEndDate }} </span>
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="periodEndDate" [sortable]="true" [width]='100' [flexGrow]='0.5'>
+                      <ng-template ngx-datatable-header-template>
+                      <!-- <ng-template ngx-datatable-header-template let-sort="sortFn" let-sortDir="sortDir"> -->
+                        <span class = 'ml--2'>Period End</span>
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-row = 'temp' let-value='temp' let-rowIndex='rowIndex'>
+                        <span class = 'blockText'>{{ temp[rowIndex].periodEndDate }} </span>
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Status" [width]='100' [flexGrow]='0.5'>
+                      <ng-template ngx-datatable-header-template>
+                        <span class = 'ml--2'>Status</span>
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-row = 'temp' let-value='temp' let-rowIndex='rowIndex'>
+                        <span class = 'blockText'>{{ temp[rowIndex].status }} </span>
+                      </ng-template>
+<!--                        <ng-template ngx-datatable-cell-template let-row='temp'-->
+<!--                            let-value='temp' let-rowIndex='rowIndex'>-->
+<!--                            {{ temp[rowIndex].active ? 'Yes' : 'No' }}-->
+                            <!-- <input type = 'checkbox' [checked]='temp[rowIndex].active'
+                                onclick = 'return false'
+                                class = 'ml-lg--7 form-control form-control-sm mt-lg--2 text-red'> -->
+<!--                        </ng-template>-->
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Total" [width]='100' [flexGrow]='0.5'>
+                      <ng-template ngx-datatable-header-template>
+                        <span class = 'ml--2'>Total</span>
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-row = 'temp' let-value='temp' let-rowIndex='rowIndex'>
+                        <div class="text-center">{{ temp[rowIndex].total | number }} </div>
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Action" [width]='100' [flexGrow]='0.5'>
+                      <ng-template ngx-datatable-header-template>
+                        <span class = 'ml--2'>Action</span>
+                      </ng-template>
+                      <ng-template ngx-datatable-cell-template let-row = 'temp' let-value='temp' let-rowIndex='rowIndex'>
+                        <span *ngIf="temp[rowIndex].status == 'Completed'" title = 'Rollback' (click)="rollbackPayroll(temp[rowIndex].id)" class = 'btn-sm fa fa-trash-alt text-danger btnHover' style = 'color:white'></span>
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-footer *ngIf="true">
+                        <ng-template
+                                ngx-datatable-footer-template
+                                let-rowCount="rowCount"
+                                let-pageSize="pageSize"
+                                let-selectedCount="selectedCount"
+                                let-curPage="curPage"
+                                let-offset="offset"
+                        >
+                            <div style="padding: 5px 10px">
+                                <div>
+                                    {{ rowCount }} Total Records
+                                </div>
+                            </div>
+                            <datatable-pager
+                                    [pagerLeftArrowIcon]="'datatable-icon-left'"
+                                    [pagerRightArrowIcon]="'datatable-icon-right'"
+                                    [pagerPreviousIcon]="'datatable-icon-prev'"
+                                    [pagerNextIcon]="'datatable-icon-skip'"
+                                    [page]="curPage"
+                                    [size]="pageSize"
+                                    [count]="rowCount"
+                                    (change)="tableBalance.onFooterPage($event)"
+                                    [hidden]="!((rowCount / pageSize) > 1)">
+                            </datatable-pager>
+                        </ng-template>
+                    </ngx-datatable-footer>
+                </ngx-datatable>
+                
+                    <ng-http-loader 
+                        [backgroundColor]="'#0070d2'"
+                        spinner="sk-three-bounce">
+                    </ng-http-loader>
+              </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<div class = 'container-fluid' *ngIf = '!aktif_table'>
+    <router-outlet></router-outlet>
+</div>

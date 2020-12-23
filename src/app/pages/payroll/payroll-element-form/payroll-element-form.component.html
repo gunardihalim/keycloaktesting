@@ -1,0 +1,497 @@
+<style>
+    .btn-header {
+        margin-bottom: 0.7rem;
+        padding: 0.2rem 1.6rem;
+    }
+    .invalidError {
+        border-color: red;
+    }
+</style>
+<div class = 'container-fluid mt--5'>
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>General</h2>
+                    </div>
+                    <div class = 'col-lg-7 text-right' *ngIf="status != 'new'">
+                        <div class ='position-absolute w-100' style = 'z-index:3;margin-left:-8.5rem;'
+                            *ngIf="showSkeletonText">
+                            <ngx-skeleton-loader animation="progress"
+                                    count = "1" [theme] = "{height:'32px',width:'110px'}">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class ='position-absolute w-100' style = 'z-index:3;margin-left:-1.5rem;'
+                            *ngIf="showSkeletonText">
+                            <ngx-skeleton-loader animation="progress"
+                                    count = "1" [theme] = "{height:'32px',width:'110px'}">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <button type = 'button' class = 'btn btn-danger btn-header' (click)="deleteItemId()">Delete</button>
+                        <button type = 'button' class = 'btn btn-default btn-header' (click)='generateExcel()'>History</button>
+                    </div>
+                    <div class="col-12">
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row text-center pb-4' *ngIf = 'alert_error_msg != "" || alert_success_msg != ""'>
+                    <div class = 'col'>
+                        <span class = 'text-danger font-weight-bold' style = 'font-size:15px'>
+                           {{ alert_error_msg }} </span>
+                        <span class = 'text-primary font-weight-bold' style = 'font-size:15px'>
+                           {{ alert_success_msg }} </span>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for = 'effective-date-id' class = 'form-control-label'>Effective Date</label>
+                                    <input type="text"
+                                        id="effective-date-id"
+                                        [ngClass]="modelEffectiveDate == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                        name = "effectiveDate"
+                                        bsDatepicker
+                                        [bsValue]='modelEffectiveDate'
+                                        [value]='modelEffectiveDate | date:"dd-MMM-yyyy"'
+                                        autocomplete="off"
+                                        autocapitalize="off"
+                                        spellcheck="false"
+                                        [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                        (bsValueChange)='dateChangeProd($event)'
+                                        [readonly]='readOnlyInput'>
+                                    <!-- <input type="text"
+                                           id="effective-date-id"
+                                           [ngClass]="modelEffectiveDate == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                           name = "effectiveDate"
+                                           ngModel
+                                           bsDatepicker
+                                           [(ngModel)] = 'modelEffectiveDate'
+                                           [bsValue] = 'modelEffectiveDate'
+                                           #effectiveDate = 'ngModel'
+                                           [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                           (change)='procChange()'
+                                           (ngModelChange)='procChange()'
+                                           [readonly]='readOnlyInput'
+                                            > -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="name" class = 'form-control-label'> Name </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name = "name"
+                                           id="name"
+                                           #name
+                                           [value]='modelName ? modelName : null'
+                                           [readonly] = 'readOnlyInput'>
+                                           <!-- (change)='procChange("name",$event)'  -->
+                                           <!-- ngModel
+                                           [(ngModel)] = 'modelName'
+                                           #name = 'ngModel' -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="reportingName" class = 'form-control-label'> Reporting Name </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name = "reportingName"
+                                           id="reportingName"
+                                           #reportingName
+                                           [value]='modelReportingName ? modelReportingName: null'
+                                           [readonly] = 'readOnlyInput'>
+                                           <!-- (change)='procChange("reportingName",$event)' -->
+                                           <!-- ngModel
+                                           [(ngModel)] = 'modelReportingName'
+                                           #reportingName = 'ngModel' -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="description" class = 'form-control-label'> Description </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name = "description"
+                                           id="description"
+                                           #description
+                                           [value]='modelDescription ? modelDescription: null'
+                                           [readonly] = 'readOnlyInput' >
+                                           <!-- (change)='procChange("description",$event)' -->
+                                           <!-- ngModel
+                                           [(ngModel)] = 'modelDescription'
+                                           #description = 'ngModel' -->
+                                </div>                          
+                            </div>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonApiElementClass'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'150px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="select2EleClassification" class = 'form-control-label'> Element Classification </label>
+                                    <ng-select2 [data]="tempTypeSelect2" [placeholder]='"Select an option..."'
+                                        [allowClear]="false"
+                                        [value]="modelElementClassification"
+                                        id='select2EleClassification'
+                                        (valueChanged)='procChange("classification", $event)'>
+                                    </ng-select2>
+                                    <!-- <select class = 'form-control'
+                                            name = 'elementClassification'
+                                            ngModel
+                                            #modelEleClassification = 'ngModel'
+                                            [(ngModel)]='modelElementClassification'
+                                            id='selectrEleClassification'
+                                            (ngModelChange) = 'procChange("classification", $event)'
+                                    >
+                                        <option *ngFor = 'let tempType of tempType'
+                                                [ngValue]='tempType.id'>
+                                            {{ tempType.name }}
+                                        </option>
+                                    </select> -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonApiFormula'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="select2Formula" class = 'form-control-label'> Formula </label>
+                                        <ng-select2 [data]="formulaTypeSelect2" [placeholder]='"Select an option..."'
+                                            [allowClear]="false"
+                                            [value]='modelFormulaId'
+                                            id='select2Formula'
+                                            (valueChanged)='procChange("formula", $event)'>
+                                        </ng-select2>
+                                    <!-- <select class = 'form-control'
+                                            name = 'selectrFormula'
+                                            ngModel
+                                            #selectrFormula = 'ngModel'
+                                            [(ngModel)]='modelFormulaId'
+                                            id='selectrFormula'
+                                            (ngModelChange)='procChange("formula", $event)'
+                                    >
+                                        <option *ngFor = 'let tempType of formulaType'
+                                                [value]='tempType.id'>
+                                            {{ tempType.name }}
+                                        </option>
+                                    </select> -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonApiFormula'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'150px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="formulaDescription" class = 'form-control-label'> Formula Description </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name = "formulaDescription"
+                                           id="formulaDescription"
+                                           [value]='modelFormulaDescription ? modelFormulaDescription: null'
+                                           (change)='procChange()'
+                                           [readonly] = 'true'>
+                                           <!-- ngModel
+                                           [(ngModel)] = 'modelFormulaDescription'
+                                           #formulaDescription = 'ngModel' -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-6 ml-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <div>
+                                            <ngx-skeleton-loader animation="progress"
+                                                    count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                            </ngx-skeleton-loader>    
+                                        </div>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="activeStatus" class = 'form-control-label'> Active </label><br>
+                                    <label class = 'custom-toggle'>
+                                        <input type="checkbox"
+                                               name = "activeStatus"
+                                               id="activeStatus"
+                                               style = 'height:30px'
+                                               ngModel
+                                               [(ngModel)] = 'modelActiveStatus'
+                                               #activeStatus = 'ngModel'
+                                               (change)='procChange()'
+                                               >
+                                        <span class = 'custom-toggle-slider rounded circle' data-label-on='Yes' data-label-off='No'></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <div>
+                                            <ngx-skeleton-loader animation="progress"
+                                                    count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                            </ngx-skeleton-loader>    
+                                        </div>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="recurring-id" class = 'form-control-label'> Recurring </label><br>
+                                    <label class = 'custom-toggle'>
+                                        <input type="checkbox"
+                                               name = "recurring"
+                                               id="recurring-id"
+                                               ngModel
+                                               [(ngModel)] = 'modelRecurring'
+                                               #recurring = 'ngModel'
+                                               style = 'height:30px'
+                                               (change)='procChange()'
+                                        >
+                                        <span class = 'custom-toggle-slider rounded circle' data-label-on='Yes' data-label-off='No'></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <div>
+                                            <ngx-skeleton-loader animation="progress"
+                                                    count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                            </ngx-skeleton-loader>    
+                                        </div>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="proration" class = 'form-control-label'> Proration </label><br>
+                                    <label class = 'custom-toggle'>
+                                        <input type="checkbox"
+                                               name = "proration"
+                                               id="proration"
+                                               ngModel
+                                               [(ngModel)] = 'modelProration'
+                                               #proration = 'ngModel'
+                                               (change)='procChange()'
+                                               style = 'height:30px'>
+                                        <span class = 'custom-toggle-slider rounded circle' data-label-on='Yes' data-label-off='No'></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="priority" class = 'form-control-label'> Priority </label><br>
+                                    <!-- <label class = 'custom-toggle'> -->
+                                        <input type="number"
+                                           class="form-control"
+                                           name = "priority"
+                                           id="priority"
+                                           #priority
+                                           [value]='modelPriority'
+                                           oninput = 'this.value = Math.abs(this.value)'
+                                           onkeypress = 'return event.charCode != 45 && this.value.length < 5'
+                                           [readonly] = 'readOnlyInput'>
+                                           <!-- (change)='procChange("priority", $event)' -->
+                                           <!-- ngModel
+                                           [(ngModel)] = 'modelPriority'
+                                           #priority = 'ngModel' -->
+<!-- 
+                                        <input type="checkbox"
+                                               name = "priority"
+                                               id="priority"
+                                               ngModel
+                                               [(ngModel)] = 'modelPriority'
+                                               #priority = 'ngModel'
+                                               (change)='procChange()'
+                                               style = 'height:30px'> -->
+                                        <!-- <span class = 'custom-toggle-slider rounded circle' data-label-on='Yes' data-label-off='No'></span> -->
+                                    <!-- </label> -->
+                                </div>                          
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="select2TerType" class = 'form-control-label'> Termination Rule </label>
+                                    <ng-select2 [data]='arrTerminationRuleSelect2' [placeholder]='"Select an option..."'
+                                        [allowClear]='false'
+                                        [value]='modelTerminationRule'
+                                        id='select2TerType'
+                                        (valueChanged)='procChange("termination", $event)'>
+                                    </ng-select2>
+                                    <!-- <select class = 'form-control'
+                                            name = 'selectrTerType'
+                                            ngModel
+                                            [(ngModel)]="modelTerminationRule"
+                                            #terminationRule = 'ngModel'
+                                            id='selectrTerType'
+                                            data-live-search='true'
+                                            data-live-search-placeholder = "Select...."
+                                            data-toggle='select'>
+                                        <option *ngFor = 'let arr of arrTerminationRule;let i=index'
+                                                [ngValue]="arr">{{arr}}</option>
+                                    </select> -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonApiElementClass'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="priorityStart" class = 'form-control-label'> Priority Start </label><br>
+                                    <!-- <label class = 'custom-toggle'> -->
+                                    <input type="number"
+                                           class="form-control"
+                                           name = "priorityStart"
+                                           id="priorityStart"
+                                           [value]='modelPriorityStart'
+                                           oninput = 'this.value = Math.abs(this.value)'
+                                           onkeypress = 'return event.charCode != 45 && this.value.length < 5'
+                                           [readonly] = 'true'>
+                                           <!-- ngModel
+                                           [(ngModel)] = 'modelPriorityStart'
+                                           #priorityStart = 'ngModel' -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonApiElementClass'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="priorityEnd" class = 'form-control-label'> Priority End</label><br>
+                                    <!-- <label class = 'custom-toggle'> -->
+                                    <input type="number"
+                                           class="form-control"
+                                           name = "priorityEnd"
+                                           id="priorityEnd"
+                                           [value]='modelPriorityEnd'
+                                           oninput = 'this.value = Math.abs(this.value)'
+                                           onkeypress = 'return event.charCode != 45 && this.value.length < 5'
+                                           [readonly] = 'true'>
+                                           <!-- ngModel
+                                           [(ngModel)] = 'modelPriorityEnd'
+                                           #priorityEnd = 'ngModel' -->
+                                </div>
+                            </div>
+                        </div>                  
+                    </div>
+                </div>
+            </div> 
+            <div class = 'col-12 text-right'>
+                <div class ='position-absolute w-100 ml--8' style = 'z-index:3;'
+                    *ngIf="showSkeletonText">
+                    <ngx-skeleton-loader animation="progress"
+                            count = "1" [theme] = "{height:'44px',width:'95px'}">
+                    </ngx-skeleton-loader>
+                </div>
+                <div class ='position-absolute w-100 ml--4' style = 'z-index:3;'
+                    *ngIf="showSkeletonText">
+                    <ngx-skeleton-loader animation="progress"
+                            count = "1" [theme] = "{height:'44px',width:'100px'}">
+                    </ngx-skeleton-loader>
+                </div>
+                <button type = 'button' class = 'btn btn-danger' (click) = 'cancelBack()' >Cancel</button>
+                <button type = 'button' class = 'w-auto btn btn-primary' [disabled]='disabledSubmit' (click) = 'submitProc()' >Submit</button>
+            </div>
+        </div>
+        <ng-http-loader 
+            [backgroundColor]="'#0070d2'"
+            spinner="sk-three-bounce">
+        </ng-http-loader>
+    </form>
+    <!-- <div style = 'background:url("assets/img/brand/logo.png") no-repeat center / cover;width:200px
+            ;-webkit-box-reflect:below 2px linear-gradient(transparent,white);height:100px;'
+            >
+        good
+    </div> -->
+</div>

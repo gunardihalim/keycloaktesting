@@ -1,0 +1,485 @@
+<style>
+    .btn-header {
+        margin-bottom: 0.7rem;
+        padding: 0.2rem 1.6rem;
+    }
+</style>
+<div class = 'container-fluid' *ngIf = '!aktif_error'>
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col-6'>
+                        <h2>Assignment Information</h2>
+                    </div>
+                    <div class = 'col-6 text-right'>
+                        <button type = 'button' class = 'btn btn-danger btn-header d-none'>Delete</button>
+                        <button type = 'button' class = 'btn btn-default btn-header d-none'>History</button>
+                    </div>
+                    <div class="col-12">
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class="col-md-12 d-none">
+                        <div class = 'form-group'>
+                            <label for="primary" class="form-control-label">Primary</label><br>
+                            <label class="custom-toggle">
+                                <!-- <input type="checkbox" checked=""> -->
+                                <!-- class="form-control align-self-center ml-lg--9" -->
+                                <input type="checkbox"
+                                       name = "primary"
+                                       id="primary"
+                                       ngModel
+                                       [(ngModel)] = 'modelPrimary'
+                                       #primary = 'ngModel'
+                                       style = 'height:30px'>
+                                <span class="custom-toggle-slider rounded-circle" data-label-off="No" data-label-on="Yes"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class = 'col-md-12'>
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonApiPosition'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'99%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="position" class="form-control-label">Position</label>
+                            <ng-select2 id="position"
+                                        [value]="modelPosition"
+                                        [allowClear]="false"
+                                        [placeholder]='"Select...."'
+                                        [data]="arrPositionSelect2"
+                                        (valueChanged)="changeType('position',$event)">
+                            </ng-select2>
+<!--                            <select name = 'selectrPosition' ngModel [(ngModel)] = 'modelPosition'-->
+<!--                                    #selectrPosition = 'ngModel' class = 'form-control text-wrap'-->
+<!--                                    data-live-search="true" id='selectrPosition'-->
+<!--                                    data-live-search-placeholder = "Select...."-->
+<!--                                    (ngModelChange)="changeType($event)"-->
+<!--                                    [disabled]="readOnlyInputSelect" data-toggle = 'select'>-->
+<!--                                <option *ngFor = 'let position of arrPosition;let i = index'-->
+<!--                                        [value] = "position.id">{{position.positionName}}</option>-->
+<!--                            </select>-->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonApiPosition'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="organization" class="form-control-label">Organization</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "organization"
+                                   id="organization"
+                                   [value] = 'modelOrganization'
+                                   #organization
+                                   [readonly] = 'true'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonApiPosition'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="job" class="form-control-label">Job</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "job"
+                                   id="job"
+                                   [value] = 'modelJob'
+                                   #job
+                                   [readonly] = 'true'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonApiGrade'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="grade" class="form-control-label">Grade</label>
+                            <ng-select2 id="grade"
+                                        [value]="modelGrade"
+                                        [data]="arrGradeSelect2"
+                                        [allowClear]="false"
+                                        [placeholder]='"Select...."'
+                                        (valueChanged)="changeType('grade',$event)">
+                            </ng-select2>
+<!--                            <select name = 'selectrGrade' ngModel [(ngModel)] = 'modelGrade'-->
+<!--                                    #selectrGrade = 'ngModel' class = 'form-control text-wrap'-->
+<!--                                    data-live-search="true" id='selectrGrade'-->
+<!--                                    data-live-search-placeholder = "Select...."-->
+<!--                                    [disabled]="readOnlyInputSelect" data-toggle = 'select'>-->
+<!--                                <option *ngFor = 'let grade of arrGrade;let i = index'-->
+<!--                                        [value] = "grade.id">{{grade.name}}</option>-->
+<!--                            </select>-->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonApiLocation'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="location" class="form-control-label">Location</label>
+                            <ng-select2 id="location"
+                                        [value]="modelLocation"
+                                        [data]="arrLocationSelect2"
+                                        [allowClear]="false"
+                                        [placeholder]='"Select...."'
+                                        (valueChanged)="changeType('location',$event)">
+                            </ng-select2>
+<!--                            <select name = 'selectrLocation' ngModel [(ngModel)] = 'modelLocation'-->
+<!--                                    #selectrLocation = 'ngModel' class = 'form-control text-wrap'-->
+<!--                                    data-live-search="true" id='selectrLocation'-->
+<!--                                    data-live-search-placeholder = "Select...."-->
+<!--                                    [disabled]="readOnlyInputSelect" data-toggle = 'select'>-->
+<!--                                <option *ngFor = 'let location of arrLocation;let i = index'-->
+<!--                                        [value] = "location.id">{{location.name}}</option>-->
+<!--                            </select>-->
+                        </div>
+                    </div>
+                    <div class = 'col-6'>
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonApiEmploymentType'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label class = 'form-control-label' for="employment-type" id = 'employment-type-id'>Employee Status</label>
+                            <ng-select2 id="employment-type"
+                                        [value]="modelEmploymentType"
+                                        [data]="arrEmploymentTypeSelect2"
+                                        [allowClear]="false"
+                                        [placeholder]='"Select...."'
+                                        (valueChanged)="changeType('employeeStatus',$event)">
+                            </ng-select2>
+<!--                            <select class = 'form-control'-->
+<!--                                    name = 'employmentType'-->
+<!--                                    [(ngModel)]="modelEmploymentType"-->
+<!--                                    #employmentType = 'ngModel'-->
+<!--                                    id='selectrEmpType'-->
+<!--                                    data-live-search='true'-->
+<!--                                    data-live-search-placeholder = "Select...."-->
+<!--                                    data-toggle='select'>-->
+<!--                                <option *ngFor = 'let arr of arrEmploymentType;let i=index'-->
+<!--                                        [ngValue]="arr">{{arr}}</option>-->
+<!--                            </select>-->
+                        </div>
+                    </div>
+                    <div class = 'col-md-6 d-none'>
+                        <div class = 'form-group'>
+                            <label for="assignmentAction" class="form-control-label">Assignment Action</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "assignmentAction"
+                                   id="assignmentAction"
+                                   ngModel
+                                   [(ngModel)] = 'modelAssignmentAction'
+                                   #assignmentAction = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-none">
+                        <div class = 'form-group'>
+                            <label for="assignmentStatus" class="form-control-label">Assignment Status</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "assignmentStatus"
+                                   id="assignmentStatus"
+                                   ngModel
+                                   [(ngModel)] = 'modelAssignmentStatus'
+                                   #assignmentStatus = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-none">
+                        <div class = 'form-group'>
+                            <label for="peopleGroup" class="form-control-label">People Group</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "peopleGroup"
+                                   id="peopleGroup"
+                                   ngModel
+                                   [(ngModel)] = 'modelPeopleGroup'
+                                   #peopleGroup = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonApiPayroll'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="payroll" class="form-control-label">Payroll</label>
+                            <ng-select2 id="payroll"
+                                        [value]="modelPayroll"
+                                        [data]="arrPayrollGroupSelect2"
+                                        [allowClear]="false"
+                                        [placeholder]='"Select...."'
+                                        (valueChanged)="changeType('payroll',$event)">
+                            </ng-select2>
+<!--                            <select name = 'selectrPayroll' ngModel [(ngModel)] = 'modelPayroll'-->
+<!--                                    #selectrLocation = 'ngModel' class = 'form-control text-wrap'-->
+<!--                                    data-live-search="true" id='selectrPayroll'-->
+<!--                                    data-live-search-placeholder = "Select...."-->
+<!--                                    [disabled]="readOnlyInputSelect" data-toggle = 'select'>-->
+<!--                                <option *ngFor = 'let payrollGroup of arrPayrollGroup;let i = index'-->
+<!--                                        [value] = "payrollGroup.id">{{payrollGroup.name}}</option>-->
+<!--                            </select>-->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonText'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="lineManager" class="form-control-label">Line Manager</label>
+                            <div class="input-group mb-3">
+                                <input type="text"
+                                       class="form-control"
+                                       id="lineManager"
+                                       name = "lineManagerName"
+                                       [value] = 'modelLineManagerName'
+                                       #lineManagerName
+                                       [readonly] = 'true'>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary"
+                                            type="button"
+                                            id="openModal"
+                                            data-target="#modal-default"
+                                            data-toggle="modal"
+                                            (click)="openEmployeeList()">
+                                        <span class="fa fa-search"></span>
+                                    </button>
+                                    <button *ngIf="modelLineManagerName"
+                                            class="btn btn-outline-danger"
+                                            type="button"
+                                            id="cleanData"
+                                            (click)="clearData()">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class = 'form-group'>
+                            <div class ='position-absolute w-100' style = 'z-index:3'
+                                *ngIf='showSkeletonText'>
+                                <ngx-skeleton-loader animation="progress"
+                                        count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                </ngx-skeleton-loader>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    'margin-top':'-9px',height:'46px',width:'97%'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <label for="lineManagerCode" class="form-control-label">Line Manager No</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "lineManagerCode"
+                                   id="lineManagerCode"
+                                   [value] = 'modelLineManagerCode'
+                                   #lineManagerCode
+                                   [readonly] = 'true'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = 'col-12 text-right'>
+                <div class ='position-absolute w-100 ml--4' style = 'z-index:3;'
+                    *ngIf="showSkeletonText">
+                    <ngx-skeleton-loader animation="progress"
+                            count = "1" [theme] = "{height:'44px',width:'100px'}">
+                    </ngx-skeleton-loader>
+                </div>
+                <button type = 'button' class = 'w-auto btn btn-primary' (click) = 'submitProc()'>Submit</button>
+            </div>
+            <ng-template #modalEmployee>
+                <div class=" modal-header">
+                    <h6 class=" modal-title" id="modal-title-default">
+                        List Employee
+                    </h6>
+                    <button
+                            aria-label="Close"
+                            type="button"
+                            class=" close"
+                            data-dismiss="modal"
+                            (click)="listEmployeeModal.hide()"
+                    >
+                        <span aria-hidden="true"> × </span>
+                    </button>
+                </div>
+
+                <div class=" modal-body">
+                    <div class="dataTables_wrapper">
+                        <div class="row">
+                            <div class="col-12 col-sm-3 col-md-3">
+                                <div class="dataTables_length" id="datatable_length">
+                                    <label>
+                                        Show
+                                        <select
+                                                name="datatable_length"
+                                                aria-controls="datatable"
+                                                class="form-control form-control-sm"
+                                                (change)="entriesChange($event)"
+                                        >
+                                            <option value="10" [selected]="entries==10">10</option>
+                                            <option value="25" [selected]="entries==25">25</option>
+                                            <option value="50" [selected]="entries==50">50</option>
+                                            <option value="-1" [selected]="entries==-1">All</option>
+                                        </select>
+                                        entries
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- <div class="col-12 col-sm-8 ml-sm-5 col-md-7 ml--7 ml-md-9"> -->
+                            <div class = 'col-12 col-sm-9 col-md-9'>
+                                <div id="datatable_filter" class="dataTables_filter pr-1">
+                                    <label>
+                                        <input
+                                                type="search"
+                                                class="form-control form-control-sm"
+                                                placeholder="Search records"
+                                                aria-controls="datatable"
+                                                name = 'nameFilter'
+                                                (keyup)="filterTable($event)"
+                                        />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ngx-datatable #tableEmployee
+                                       id="print-section"
+                                       class="bootstrap selection-cell"
+                                       [columnMode]="'force'"
+                                       [headerHeight]="50"
+                                       [footerHeight]="50"
+                                       [rowHeight]="'auto'"
+                                       [limit]="entries != -1 ? entries:undefined"
+                                       [rows]="temp"
+                                       [selectionType] ="'single'"
+                                       (activate)="onActivate($event)"
+                                       (select)="onSelect($event)"
+                                       style = 'cursor:pointer'
+                        >
+
+                            <!-- selectionType = 'multiclick, cell, single' -->
+                            <!-- [selected]="selected" -->
+                            <ngx-datatable-column name="No" [flexGrow]="1" [width]="50">
+                                <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                                    {{rowIndex + 1}}
+                                </ng-template>
+                            </ngx-datatable-column>
+                            <ngx-datatable-column name="Name" [flexGrow]="1" [minWidth]="150"></ngx-datatable-column>
+                            <ngx-datatable-column name="Employee No" [flexGrow]="1" [minWidth]="100"></ngx-datatable-column>
+                            <ngx-datatable-footer *ngIf="true">
+                                <ng-template
+                                        ngx-datatable-footer-template
+                                        let-rowCount="rowCount"
+                                        let-pageSize="pageSize"
+                                        let-selectedCount="selectedCount"
+                                        let-curPage="curPage"
+                                        let-offset="offset"
+                                >
+                                    <div style="padding: 5px 10px">
+                                        <div>
+                                            {{ rowCount }} Total Records<br>
+                                            {{ selectedCount }} selected
+                                        </div>
+                                    </div>
+                                    <datatable-pager
+                                            [pagerLeftArrowIcon]="'datatable-icon-left'"
+                                            [pagerRightArrowIcon]="'datatable-icon-right'"
+                                            [pagerPreviousIcon]="'datatable-icon-prev'"
+                                            [pagerNextIcon]="'datatable-icon-skip'"
+                                            [page]="curPage"
+                                            [size]="pageSize"
+                                            [count]="rowCount"
+                                            (change)="tableEmployee.onFooterPage($event)"
+                                            [hidden]="!((rowCount / pageSize) > 1)">
+                                    </datatable-pager>
+                                </ng-template>
+                            </ngx-datatable-footer>
+                        </ngx-datatable>
+
+                        <ng-http-loader
+                                [backgroundColor]="'#0070d2'"
+                                spinner="sk-three-bounce">
+                        </ng-http-loader>
+                    </div>
+                </div>
+
+                <div class=" modal-footer">
+                    <button class=" btn btn-primary" type="button" (click) = 'updateData()'>
+                        Save changes
+                    </button>
+
+                    <button
+                            class=" btn btn-link ml-auto"
+                            data-dismiss="modal"
+                            type="button"
+                            (click)="listEmployeeModal.hide()"
+                    >
+                        Close
+                    </button>
+                </div>
+            </ng-template>
+            <ng-http-loader
+                [backgroundColor]="'#0070d2'"
+                spinner="sk-three-bounce">
+            </ng-http-loader>
+        </div>
+    </form>
+</div>
+
+<div class = 'container-fluid' *ngIf = 'aktif_error'>
+    <router-outlet></router-outlet>
+</div>

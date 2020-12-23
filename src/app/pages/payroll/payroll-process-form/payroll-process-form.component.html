@@ -1,0 +1,1031 @@
+<style>
+    .btnHover:hover {
+        box-shadow:1px 1px 5px 5px lightcyan;
+    }
+    .invalidError {
+        border-color: red;
+    }
+    .errorSelectr {
+        border: 1px solid red;
+    }
+</style>
+
+<div class = 'container-fluid mt--5'>
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>General</h2>
+                    </div>
+                    <!-- <button type = 'button' class = 'btn btn-default py-1' (click) = 'parsingData()'>History</button> 
+                    <ng-template #clone>
+                    <select id = 'clone-id'
+                        name = 'cloneName'
+                        ngModel
+                        #cloneName = 'ngModel'
+                        [(ngModel)] = 'modelClone'>
+                        <option [value] = 'tesArr'
+                            *ngFor = 'let tesArr of tesArr'>{{ tesArr }} </option>
+                    </select>
+                    </ng-template>
+                    <div #container></div> -->
+
+                    <div class = 'col-lg-7 text-right' *ngIf = 'status != "new"'>
+                        <!-- <button type = 'button' class = 'btn btn-danger py-1' (click) = 'deleteItemId()'>Delete</button>  -->
+                        <!-- <button type = 'button' class = 'btn btn-danger py-1'>Delete</button>  -->
+                        <button type = 'button' class = 'btn btn-default py-1 d-none'>History</button>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-12'>
+                        <hr class = 'mt-1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <!-- <div class = 'row text-center pb-4' *ngIf = 'alert_error_msg != "" || alert_success_msg != ""'>
+                    <div class = 'col'>
+                        <span class = 'text-danger font-weight-bold' style = 'font-size:15px'>
+                           {{ alert_error_msg }} </span>
+                        <span class = 'text-primary font-weight-bold' style = 'font-size:15px'>
+                           {{ alert_success_msg }} </span>
+                    </div>
+                </div> -->
+                <div class = 'row box-top' style = 'top:0'>
+                    <div class = 'col-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12' *ngIf="modelRequestNo">
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf = 'showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+
+                                    <label for="requestNo" class = 'form-control-label'> Request No </label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name = "requestNo"
+                                           id="requestNo"
+                                           ngModel
+                                           [(ngModel)] = 'modelRequestNo'
+                                           #requestNo = 'ngModel'
+                                           [readonly] = 'readOnlyInput'
+                                           [disabled] = 'readOnlyInput'>
+                                           <!-- (change)='changeProc()'
+                                           (ngModelChange)="changeProc()" -->
+                                </div>
+                            </div>
+                            <div [ngClass]='{"col-12": true, "mt--3": status != "new"}'>
+                                <div class = 'form-group' 
+                                    #elementPayGroup>
+                                    <!-- <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Balance Name</div>
+                                        </div>
+                                    </div> -->
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf = 'showSkeletonApi'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'95px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+
+                                    <label for ='payroll-group-id' class = 'form-control-label'>Payroll Group</label>
+                                    <!-- <div [ngStyle] = '{"border":modelPayrollGroup == null ? "1px solid red":"1px solid transparent"}'> -->
+                                        <!-- <button (click)='procShow()'>Click</button> -->
+                                        
+                                    <div [ngClass] = '{"errorSelectr":statusErrPayroll == true}'>
+                                            <ng-select2 [data]="rowsPayrollGroupSelect2" [placeholder]="'Select Item ... '"
+                                                [allowClear]="false"
+                                                [value]="select2PayrollGroup"
+                                                id = 'select2Payroll'
+                                                (valueChanged)='procChangePayrollGroup($event)'
+                                                [disabled]="select2PayrollGroupDisabled">
+                                            </ng-select2>
+                                    </div>
+
+
+                                    <!-- <div [ngClass] = '{"errorSelectr":statusErrPayroll == true}'>
+                                        <select id = 'payroll-group-id'
+                                            name = 'payrollGroup'
+                                            ngModel
+                                            #payrollGroup = 'ngModel'
+                                            (change) = 'payGroupProd()'
+                                            [(ngModel)] = 'modelPayrollGroup'
+                                            [disabled] = 'readOnlyInput'>
+                                            <option [value] = 'rowsPayrollGroup.id'
+                                                *ngFor = 'let rowsPayrollGroup of rowsPayrollGroup'
+                                                [disabled] = 'readOnlyInput'>{{ rowsPayrollGroup.name }} </option>
+                                        </select>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf = 'showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+
+                                    <label for = 'payslip-date-id' class = 'form-control-label'>Period  (MMM-YYYY)</label>
+                                    <input type="text"
+                                            [ngClass] = '{"invalidError" : modelPeriod == "Invalid Date","form-control" : true}'
+                                            id = 'period-id'
+                                            name = "period"
+                                            bsDatepicker
+                                            [bsValue] = 'modelPeriod'
+                                            [value]='modelPeriod | date:"MMM-yyyy"'
+                                            autocomplete="off"
+                                            autocapitalize="off"
+                                            spellcheck="false"
+                                            [bsConfig] = '{dateInputFormat : "MMM-YYYY"}'
+                                            (keyup) = 'dateChangeProd($event,"keyup")'
+                                            (bsValueChange) = 'dateChangeProd($event,"change")'
+                                            (onShown)='onOpenCalendar($event)'
+                                            [readonly] = 'readOnlyInput'
+                                            [disabled] = 'readOnlyInput'>
+                                            
+                                            <!-- #payrollProcessInput -->
+                                            <!-- (keyup) = 'dateChangeProd($event,"keyup")' -->
+                                            <!-- onkeypress = 'if(this.value.length == 7){dateChangeProd2("masuk");return true}'             -->
+                                            
+                                    <!-- <input type="text"
+                                            id = 'period-id'
+                                            [ngClass] = '{"invalidError" : modelPeriod == "Invalid Date","form-control" : true}'
+                                            name = "period"
+                                            ngModel
+                                            bsDatepicker
+                                            [bsValue] = 'modelPeriod'
+                                            [bsConfig] = '{dateInputFormat : "MMM-YYYY"}'
+                                            [(ngModel)] = 'modelPeriod'
+                                            #period = 'ngModel'
+                                            (keyup) = 'dateChangeProd($event,"keyup")'
+                                            (ngModelChange) = 'dateChangeProd($event,"change")'
+                                            (onShown)='onOpenCalendar($event)'
+                                            [readonly] = 'readOnlyInput'
+                                            [disabled] = 'readOnlyInput'>         -->
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3' *ngIf="aktifPeriod">
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf = 'showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    
+                                    <label for = 'payslip-date-id' class = 'form-control-label'>Payslip Date</label>
+                                    <input type="text"
+                                            id = 'payslip-date-id'
+                                            [ngClass] = '{"invalidError" : modelPayslipDate == "Invalid Date","form-control" : true}'
+                                            name = "paySlipDate"
+                                            ngModel
+                                            bsDatepicker
+                                            [bsValue] = 'modelPayslipDate'
+                                            [bsConfig] = '{dateInputFormat : "DD-MMM-YYYY"}'
+                                            [(ngModel)] = 'modelPayslipDate'
+                                            (ngModelChange)='dateChangeOther($event)'
+                                            #paySlipDate = 'ngModel'
+                                            [readonly] = 'readOnlyInput'
+                                            [disabled] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-6 ml-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                            <!-- <div [ngClass] = 'aktifPeriod == true ? "col-12 mt--3":"col-12"'> -->
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf = 'showSkeletonApi'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'70px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+
+                                    <label for = 'run-type-id' class = 'form-control-label'>Run Type</label><br>
+                                    <ng-select2 [data]="rowsRunTypeSelect2" [placeholder]="'Select Item ... '"
+                                                [allowClear]="false"
+                                                [value]="select2RunType"
+                                                (valueChanged)='procChangeRunType($event)'
+                                                [disabled]="select2RunTypeDisabled">
+                                    </ng-select2>
+                                    <!-- <select id = 'run-type-id'
+                                        name = 'runType'
+                                        ngModel
+                                        #runType = 'ngModel'
+                                        [(ngModel)] = 'modelRunType'
+                                        (change)='runTypeProd()'>
+                                        <option *ngFor = 'let rowsRunType of rowsRunType'
+                                            [value]='rowsRunType.id'
+                                            > {{ rowsRunType.name }} </option>
+                                    </select> -->
+                                </div>
+                            </div>  
+                            <div class = 'col-12 mt--3' *ngIf="aktifPeriod">
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf = 'showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+
+                                    <label for = 'cutoff-date-id' class = 'form-control-label'>Cutoff Date</label>
+                                    <input type="text"
+                                            id = 'cutoff-date-id'
+                                            [ngClass] = '{"invalidError" : modelCutoffDate == "Invalid Date","form-control" : true}'
+                                            name = "cutOffDate"
+                                            ngModel
+                                            bsDatepicker
+                                            [bsValue] = 'modelCutoffDate'
+                                            [bsConfig] = '{dateInputFormat : "DD-MMM-YYYY"}'
+                                            [(ngModel)] = 'modelCutoffDate'
+                                            #cutOffDate = 'ngModel'
+                                            (ngModelChange)='dateChangeOther($event)'
+                                            [readonly] = 'readOnlyInput'
+                                            [disabled] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                </div>
+                            </div>  
+                            <div class = 'col-12 mt--3' *ngIf="aktifPeriod">
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf = 'showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+
+                                    <label for = 'period-end-date-id' class = 'form-control-label'>Period End Date</label><br>
+                                    <input type="text"
+                                            id = 'period-end-date-id'
+                                            [ngClass] = '{"invalidError" : modelPeriodEndDate == "Invalid Date","form-control" : true}'
+                                            name = "periodEndDate"
+                                            ngModel
+                                            bsDatepicker
+                                            [bsValue] = 'modelPeriodEndDate'
+                                            [bsConfig] = '{dateInputFormat : "DD-MMM-YYYY"}'
+                                            [(ngModel)] = 'modelPeriodEndDate'
+                                            (ngModelChange)='dateChangePeriodEnd($event)'
+                                            #periodEndDate = 'ngModel'
+                                            [readonly] = 'readOnlyInput'
+                                            [disabled] = 'readOnlyInput'>
+                                </div>
+                            </div>  
+                        </div>                  
+                    </div>
+                </div>
+            </div> 
+            <!-- Detail -->
+            <div class = 'col mt-3'>
+                <h2>Employees</h2>
+                <!-- <button (click)='showSkeletonApi=!showSkeletonApi'> Click</button> -->
+                <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+            </div>
+            <div class = 'col-12 mt--4'>
+                <!-- style = 'box-shadow:1px 1px 6px 5px lightgrey;border-radius:10px' -->
+                <div class="dataTables_wrapper py-4">
+                <div class="row">
+                  <div class="col-12 col-sm-4 col-md-4">
+                    <div class ='position-block w-100 d-flex align-items-center' style = 'z-index:11'
+                        *ngIf = 'showSkeletonApiPartial'>
+                            <div class = 'd-inline-block'>
+                                <ngx-skeleton-loader animation="progress" 
+                                        [theme] = "{height:'24px',width:'37px'}">
+                                </ngx-skeleton-loader>
+                            </div> 
+                            <div class = 'd-inline-block ml-1'>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                        height:'30px',width:'60px'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <div class = 'd-inline-block ml-1'>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                        height:'24px',width:'48px'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <div class = 'd-inline-block ml-2'>
+                                <ngx-skeleton-loader animation="progress" [theme] = "{
+                                        height:'29px',width:'63px'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                    </div>
+
+                    <div class="dataTables_length" id="datatable_length" style = 'padding-left:0'
+                        *ngIf = '!showSkeletonApiPartial'>
+                      <label>
+                        Show
+                        <select
+                          name="datatable_length"
+                          aria-controls="datatable"
+                          class="form-control form-control-sm"
+                          (change)="entriesChange($event)"
+                        >
+                          <option value="10" [selected]="entries==10">10</option>
+                          <option value="25" [selected]="entries==25">25</option>
+                          <option value="50" [selected]="entries==50">50</option>
+                          <option value="-1" [selected]="entries==-1">All</option>
+                        </select>
+                        entries
+                        <button type = 'button' class = 'btn btn-success btn-sm ml-3'
+                          (click)='createElement()'
+                          style = 'z-index:10'
+                          *ngIf = 'status=="new"'>
+                          Create
+                        </button>
+                        </label>
+                    </div>                    
+                  </div>
+                  <div class="col-12 col-sm-8 col-md-8">
+                    <div id="datatable_filter" class="dataTables_filter" style = 'padding-right:0'>
+                    
+                    <div class ='position-block w-100 d-flex align-items-center' style = 'z-index:11'
+                        *ngIf = 'showSkeletonApiPartial'>
+                        <div class = 'd-inline-block'>
+                            <ngx-skeleton-loader animation="progress"
+                                    [theme] = "{height:'32px',width:'180px'}">
+                            </ngx-skeleton-loader>
+                        </div> 
+                    </div>
+
+                      <label *ngIf = '!showSkeletonApiPartial'>
+                        <input
+                          type="search"
+                          class="form-control form-control-sm"
+                          placeholder="Search records"
+                          aria-controls="datatable"
+                          [(ngModel)] = 'modelFilter'
+                          name = 'nameFilter'
+                          ngModel
+                          #nameFilter = 'ngModel'
+                          (keyup)="filterTablePartial($event)"
+                          (sort) = 'onSortPartial($event)'
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class ='position-block w-100 mt-0' style = 'z-index:12'
+                    *ngIf = 'showSkeletonApiPartial'>
+                    <ngx-skeleton-loader animation="progress"
+                            [theme] = "{height:'45px'}">
+                    </ngx-skeleton-loader>
+                    <div class = 'row'>
+                        <div class = 'col-1'>
+                            <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    display:'block',height:'30px'}" count="10">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class = 'col-2'>
+                            <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    display:'block',height:'30px'}" count = "10">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class = 'col-2'>
+                            <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    display:'block',height:'30px'}" count = "10">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class = 'col-2'>
+                            <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    display:'block',height:'30px'}" count = "10">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class = 'col-3'>
+                            <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    display:'block',height:'30px'}" count = "10">
+                            </ngx-skeleton-loader>
+                        </div>
+                        <div class = 'col-2'>
+                            <ngx-skeleton-loader animation="progress" [theme] = "{
+                                    display:'block',height:'30px'}" count = "10">
+                            </ngx-skeleton-loader>
+                        </div>
+                    </div>
+                </div>
+
+                <ngx-datatable #tableBalance *ngIf = '!showSkeletonApiPartial'
+                  id="print-section"
+                  class="bootstrap selection-cell"
+                  [columnMode]="'force'"
+                  [headerHeight]="50"
+                  [footerHeight]="50"
+                  [rowHeight]="'auto'"
+                  [limit]="entries != -1 ? entries:undefined"
+                  [rows]="temp"
+                  [selectionType] ="'single'" 
+                  (activate)="onActivate($event)"
+                  (select)="onSelect($event)"
+                  (sort)='onSortPartial($event)'
+                  style = 'cursor:pointer'
+                >
+                <!-- selectionType = 'multiClick, cell, single' -->
+                <!-- [selected]="selected" -->
+                    <ngx-datatable-column name="No Partial" prop="noPartial" [width]="50" [flexGrow]="0.2">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class = 'ml--2'>No</span>
+                        </ng-template>
+                        <ng-template let-row="temp" let-value="temp" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                            <span class = 'blockText'>{{ temp[rowIndex].noPartial}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Employee Number" [width]="100" [flexGrow]="0.4">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class = 'ml--2'>Employee No</span>
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-row='temp' let-value='temp'
+                            let-rowIndex='rowIndex'>
+                            <span *ngIf = 'status!="new"' (click)='elementEntriesProc(rowIndex)' class = 'blockText'
+                                    style = 'text-decoration:underline;'> {{ temp[rowIndex].employeeNumber }} </span>
+                            <span *ngIf = 'status=="new"' class = 'blockText'> {{ temp[rowIndex].employeeNumber }} </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Employee Name" [width]="150" [flexGrow]="0.6">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class = 'ml--2'>Name</span>
+                        </ng-template>
+                        <ng-template let-row="temp" let-value="temp" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                            <span class = 'blockText'>{{ temp[rowIndex].employeeName}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Company Name" [width]="150" [flexGrow]="0.6">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class = 'ml--2'>Company</span>
+                        </ng-template>
+                        <ng-template let-row="temp" let-value="temp" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                            <span class = 'blockText'>{{ temp[rowIndex].companyName}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Position Name" [width]="250" [flexGrow]="0.8">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class = 'ml--2'>Position</span>
+                        </ng-template>
+                        <ng-template let-row="temp" let-value="temp" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                            <span class = 'blockText'>{{ temp[rowIndex].positionName}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Employee Status" [width]="100" [flexGrow]="0.3">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class = 'ml--2'>Status</span>
+                        </ng-template>
+                        <ng-template let-row="temp" let-value="temp" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                            <span class = 'blockText'>{{ temp[rowIndex].employeeStatus}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Action" [width]="100" [flexGrow]="0.3" *ngIf = "status=='new'">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            <span class = 'ml--2'>Action</span>
+                        </ng-template>
+                        <ng-template ngx-datatable-cell-template let-row='temps' let-value='temps'
+                            let-rowIndex='rowIndex'>
+                            <!-- (click) = 'deleteShow(rowIndex,modalDelete)' -->
+                            <!-- <span title = 'Edit' class = 'btn-sm fa fa-edit text-primary btnHover' style = 'color:white'
+                                (click) = 'editShow(rowIndex,modalDefault)'>  </span> -->
+                            <span title = 'Delete' class = 'btn-sm fa fa-trash-alt text-danger btnHover' style = 'color:white'
+                                (click) = 'deleteShow(rowIndex,modalDelete)'>  </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <!-- <ngx-datatable-column name="Active">
+                        <ng-template ngx-datatable-cell-template let-row='temp'
+                            let-value='temp' let-rowIndex='rowIndex'>
+                            <input type = 'checkbox' [checked]='temp[rowIndex].active'
+                                onclick = 'return false'
+                                class = 'ml-5'>
+                        </ng-template>
+                    </ngx-datatable-column> -->
+                    <ngx-datatable-footer>
+                         <ng-template
+                                ngx-datatable-footer-template
+                                let-rowCount="rowCount"
+                                let-pageSize="pageSize"
+                                let-selectedCount="selectedCount"
+                                let-curPage="curPage"
+                                let-offset="offset"
+                        >
+                            <div style="padding: 5px 10px">
+                                <div>
+                                    {{ rowCount }} Total Records
+                                </div>
+                            </div>
+                            <datatable-pager
+                                    [pagerLeftArrowIcon]="'datatable-icon-left'"
+                                    [pagerRightArrowIcon]="'datatable-icon-right'"
+                                    [pagerPreviousIcon]="'datatable-icon-prev'"
+                                    [pagerNextIcon]="'datatable-icon-skip'"
+                                    [page]="curPage"
+                                    [size]="pageSize"
+                                    [count]="rowCount"
+                                    (change)="tableBalance.onFooterPage($event)"
+                                    [hidden]="!((rowCount / pageSize) > 1)"
+                                    >
+                            </datatable-pager>
+                            
+                        </ng-template>
+                    </ngx-datatable-footer>
+                </ngx-datatable>
+                
+
+                    <!-- <ng-http-loader 
+                        [backgroundColor]="'#0070d2'"
+                        [minDuration]="5000"
+                        spinner="sk-three-bounce">
+                    </ng-http-loader> -->
+
+                    <!-- MODAL UPDATE -->
+                    <!-- <button
+                        class=" btn btn-block btn-primary mb-3"
+                        data-target="#modal-default"
+                        data-toggle="modal"
+                        type="button"
+                        (click)="openDefaultModal(modalDefault)"
+                    >
+                        Default
+                    </button> -->
+                    <!-- MODAL FOR DELETE -->
+                    <ng-template #modalDelete>
+                        <div class = 'modal-header'>
+                            <h6 class = 'modal-title'>Warning !</h6>
+                            <button class = 'close text-white'
+                                type = 'button'
+                                data-dismiss = 'modal'
+                                (click)='defaultModalDelete.hide()'>x</button>
+                        </div>
+                        <div class = 'modal-body'>
+                            <span> Are you want to delete   "{{ textModalSelect }}" ?</span>
+                        </div>
+                        <div class = 'modal-footer'>
+                            <button class = 'btn btn-danger border-top border-bottom border-left border-right' (click) = 'deleteItem()'>Yes</button>
+                            <button class = 'btn btn-danger border-top border-bottom border-left border-right'
+                                    (click) = 'defaultModalDelete.hide()'>No</button>
+                        </div>
+                    </ng-template>
+
+                    <!-- MODAL FOR DELETE PERMANENT BALANCE TYPES  -->
+                    <ng-template #modalDeleteId>
+                        <div class = 'modal-header'>
+                            <h6 class = 'modal-title'>Warning !</h6>
+                            <button class = 'close text-white'
+                                type = 'button'
+                                data-dismiss = 'modal'
+                                (click)='defaultModalDeleteId.hide()'>x</button>
+                        </div>
+                        <div class = 'modal-body'>
+                            <span> Are you want to delete Balance Types   "{{ modelName }}" ?</span>
+                        </div>
+                        <div class = 'modal-footer'>
+                            <button class = 'btn btn-danger border-top border-bottom border-left border-right' (click) = 'deleteItemIdYes()'>Yes</button>
+                            <button class = 'btn btn-danger border-top border-bottom border-left border-right'
+                                    (click) = 'defaultModalDeleteId.hide()'>No</button>
+                        </div>
+                    </ng-template>
+
+                    <!-- MODAL FOR EDIT / VIEW -->
+                    <ng-template #modalDefault>
+                        <div class=" modal-header">
+                            <div style="width: 100%;">
+                                <h6 class=" modal-title mb-1" id="modal-title-default">
+                                    Employee List
+                                </h6>
+                                <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                            </div>
+                            <!-- <button
+                                aria-label="Close"
+                                type="button"
+                                class=" close"
+                                data-dismiss="modal"
+                                (click)="defaultModal.hide()"
+                            >
+                                <span aria-hidden="true"> X </span>
+                            </button> -->
+                            <!-- <button
+                                aria-label="Close"
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                (click)="defaultModal.hide()"
+                            >X
+                                <span aria-hidden="false"> × </span>
+                            </button> -->
+                        </div>
+
+                        <div class=" modal-body mt--6">
+                            <!-- <div class = 'row text-center pb-4' *ngIf = 'alert_error_modal_msg != ""'>
+                                <div class = 'col'>
+                                    <span class = 'text-danger font-weight-bold' style = 'font-size:15px'>
+                                       {{ alert_error_modal_msg }}
+                                    </span>
+                                </div>
+                            </div> -->
+                            <div class = 'row'>
+                                <div class = 'col-12'>
+                                    <!-- Tabel Employee List -->
+                                    <div class="dataTables_wrapper py-4">
+                                        <div class="row">
+                                          <div class="col-12 col-sm-4 col-md-4">
+                                            <div class="dataTables_length" id="datatable_length" style = 'padding-left:0'>
+                                              <label>
+                                                Show
+                                                <select
+                                                  name="datatable_length"
+                                                  aria-controls="datatable"
+                                                  class="form-control form-control-sm"
+                                                  (change)="entriesChangeList($event)"
+                                                >
+                                                  <option value="5" [selected]="entriesList==5">5</option>
+                                                  <option value="10" [selected]="entriesList==10">10</option>
+                                                  <option value="25" [selected]="entriesList==25">25</option>
+                                                  <option value="50" [selected]="entriesList==50">50</option>
+                                                  <option value="-1" [selected]="entriesList==-1">All</option>
+                                                </select>
+                                                entries
+                                                </label>
+                                            </div>                    
+                                          </div>
+                                          <div class="col-12 col-sm-8 col-md-8">
+                                            <div id="datatable_filter" class="dataTables_filter" style = 'padding-right:0'>
+                                              <label>
+                                                <input
+                                                  type="search"
+                                                  class="form-control form-control-sm"
+                                                  placeholder="Search records"
+                                                  aria-controls="datatable"
+                                                  [(ngModel)] = 'modelFilterList'
+                                                  name = 'nameFilterList'
+                                                  ngModel
+                                                  #nameFilterList = 'ngModel'
+                                                  (keyup)="filterTableList($event)"
+                                                />
+                                              </label>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <ngx-datatable #tableBalance
+                                          id="print-section"
+                                          class="bootstrap selection-cell"
+                                          [columnMode]="'force'"
+                                          [headerHeight]="50"
+                                          [footerHeight]="50"
+                                          [rowHeight]="'50'"
+                                          [limit]="entriesList != -1 ? entriesList:undefined"
+                                          [rows]="tempEmp"
+                                          [selectionType] ="'single'" 
+                                          (activate)="onActivate($event)"
+                                          (select)="onSelectList($event)"
+                                          style = 'cursor:pointer'
+                                          [scrollbarV]="false"
+                                          (sort)="onSort($event)"
+                                        >
+                                        <!-- selectionType = 'multiClick, cell, single' -->
+                                        <!-- [selected]="selected" -->
+                                            <!-- <ngx-datatable-column name="No" prop="no" [flexGrow]="0.2"></ngx-datatable-column> -->
+                                            <ngx-datatable-column name = 'active' [sortable]="false" [width]="50" [flexGrow]='0.3'>
+                                                <ng-template let-column="column" ngx-datatable-header-template>
+                                                    <span class = 'ml--2 invisible hide_arrow'>Select</span>
+                                                </ng-template>
+                                                <ng-template ngx-datatable-cell-template let-row='tempEmp'
+                                                    let-value='tempEmp' let-rowIndex='rowIndex'>
+                                                    <div class="text-center">
+                                                        <input type = 'checkbox'
+                                                            class = 'mt--2'
+                                                            [checked]='tempEmp[rowIndex].active'>
+                                                    </div>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Employee Number" [width]="100" [flexGrow]="0.5">
+                                                <ng-template let-column="column" ngx-datatable-header-template>
+                                                    <span class = 'ml--2'>Employee No</span>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Employee Name" [width]="100" [flexGrow]="0.7">
+                                                <ng-template let-column="column" ngx-datatable-header-template>
+                                                    <span class = 'ml--2'>Name</span>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Company Name" [width]="150" [flexGrow]="0.7">
+                                                <ng-template let-column="column" ngx-datatable-header-template>
+                                                    <span class = 'ml--2'>Company</span>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Position Name" [width]="200" [flexGrow]="0.9">
+                                                <ng-template let-column="column" ngx-datatable-header-template>
+                                                    <span class = 'ml--2'>Position</span>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Employee Status" [width]="75" [flexGrow]="0.3">
+                                                <ng-template let-column="column" ngx-datatable-header-template>
+                                                    <span class = 'ml--2'>Status</span>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <!-- <ngx-datatable-column name="Action" [flexGrow]="0.2">
+                                                <ng-template ngx-datatable-cell-template let-row='temp' let-value='temp'
+                                                    let-rowIndex='rowIndex'>
+                                                    
+                                                    <span title = 'Delete' class = 'btn-sm fa fa-trash-alt text-danger btnHover' style = 'color:white'
+                                                        (click) = 'deleteShow(rowIndex,modalDelete)'>  </span>
+                                                </ng-template>
+                                            </ngx-datatable-column> -->
+                                            <!-- <ngx-datatable-column name="Active">
+                                                <ng-template ngx-datatable-cell-template let-row='temp'
+                                                    let-value='temp' let-rowIndex='rowIndex'>
+                                                    <input type = 'checkbox' [checked]='temp[rowIndex].active'
+                                                        onclick = 'return false'
+                                                        class = 'ml-5'>
+                                                </ng-template>
+                                            </ngx-datatable-column> -->
+                                            <ngx-datatable-footer>
+                                                 <ng-template
+                                                        ngx-datatable-footer-template
+                                                        let-rowCount="rowCount"
+                                                        let-pageSize="pageSize"
+                                                        let-selectedCount="selectedCount"
+                                                        let-curPage="curPage"
+                                                        let-offset="offset"
+                                                >
+                                                    <div style="padding: 5px 10px">
+                                                        <div>
+                                                            {{ rowCount }} Total Records
+                                                        </div>
+                                                    </div>
+                                                    <datatable-pager
+                                                            [pagerLeftArrowIcon]="'datatable-icon-left'"
+                                                            [pagerRightArrowIcon]="'datatable-icon-right'"
+                                                            [pagerPreviousIcon]="'datatable-icon-prev'"
+                                                            [pagerNextIcon]="'datatable-icon-skip'"
+                                                            [page]="curPage"
+                                                            [size]="pageSize"
+                                                            [count]="rowCount"
+                                                            (change)="tableBalance.onFooterPage($event)"
+                                                            [hidden]="!((rowCount / pageSize) > 1)"
+                                                            >
+                                                    </datatable-pager>
+                                                    
+                                                </ng-template>
+                                            </ngx-datatable-footer>
+                                        </ngx-datatable>
+                                        
+                        
+                                            <!-- <ng-http-loader 
+                                                [backgroundColor]="'#0070d2'"
+                                                spinner="sk-three-bounce">
+                                            </ng-http-loader>      -->
+                                    </div>   
+                                </div>  
+                            </div>
+                        </div>
+
+                        <div class=" modal-footer mt--5">
+                        <button class=" btn btn-primary" type="button" (click) = 'updateItem()' [disabled]='disabledButton'>
+                            Save changes
+                        </button>
+
+                        <button
+                            class="btn btn-link ml-auto"
+                            data-dismiss="modal"
+                            type="button"
+                            (click)="defaultModal.hide()"
+                        >
+                            Close
+                        </button>
+                        </div>
+                    </ng-template>
+
+                    <!-- MODAL FOR ELEMENT ENTRIES -->
+                    <ng-template #modalElementEntries>
+                        <div class=" modal-header">
+                            <div style="width: 100%;">
+                                <h6 class=" modal-title mb-1" id="modal-title-default">
+                                    Payroll Result
+                                </h6>
+                                <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                            </div>
+                            <!-- <button
+                                aria-label="Close"
+                                type="button"
+                                class=" close"
+                                data-dismiss="modal"
+                                (click)="defaultModal.hide()"
+                            >
+                                <span aria-hidden="true"> X </span>
+                            </button> -->
+                            <!-- <button
+                                aria-label="Close"
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                (click)="defaultModal.hide()"
+                            >X
+                                <span aria-hidden="false"> × </span>
+                            </button> -->
+                        </div>
+
+                        <div class=" modal-body mt--6">
+                            <!-- <div class = 'row text-center pb-4' *ngIf = 'alert_error_modal_msg != ""'>
+                                <div class = 'col'>
+                                    <span class = 'text-danger font-weight-bold' style = 'font-size:15px'>
+                                       {{ alert_error_modal_msg }}
+                                    </span>
+                                </div>
+                            </div> -->
+                            <div class = 'row'>
+                                <div class = 'col-12'>
+                                    <div class="dataTables_wrapper py-4">
+                                        <div class="row">
+                                          <div class="col-12 col-sm-4 col-md-4">
+                                            <div class="dataTables_length" id="datatable_length" style = 'padding-left:0'>
+                                              <label>
+                                                Show
+                                                <select
+                                                  name="datatable_length"
+                                                  aria-controls="datatable"
+                                                  class="form-control form-control-sm"
+                                                  (change)="entriesChangeEnteriesList($event)"
+                                                >
+                                                  <option value="5" [selected]="entriesList==5">5</option>
+                                                  <option value="10" [selected]="entriesList==10">10</option>
+                                                  <option value="25" [selected]="entriesList==25">25</option>
+                                                  <option value="50" [selected]="entriesList==50">50</option>
+                                                  <option value="-1" [selected]="entriesList==-1">All</option>
+                                                </select>
+                                                entries
+                                                </label>
+                                            </div>                    
+                                          </div>
+                                          <div class="col-12 col-sm-8 col-md-8">
+                                            <div id="datatable_filter" class="dataTables_filter" style = 'padding-right:0'>
+                                              <label>
+                                                <input
+                                                  type="search"
+                                                  class="form-control form-control-sm"
+                                                  placeholder="Search records"
+                                                  aria-controls="datatable"
+                                                  [(ngModel)] = 'modelFilterEntries'
+                                                  name = 'nameFilterEntries'
+                                                  ngModel
+                                                  #nameFilterEntries = 'ngModel'
+                                                  (keyup)="filterTableEntries($event)"
+                                                />
+                                              </label>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <ngx-datatable #tableBalance
+                                          id="print-section"
+                                          class="bootstrap selection-cell"
+                                          [columnMode]="'force'"
+                                          [headerHeight]="50"
+                                          [footerHeight]="50"
+                                          [rowHeight]="'50'"
+                                          [limit]="entriesListEntries != -1 ? entriesListEntries:undefined"
+                                          [rows]="tempEntries"
+                                          [selectionType] ="'single'" 
+                                          (activate)="onActivate($event)"
+                                          (select)="onSelectEntries($event)"
+                                          style = 'cursor:pointer'
+                                          [scrollbarV]="false"
+                                          (sort)="onSortEntries($event)"
+                                        >
+                                        <!-- selectionType = 'multiClick, cell, single' -->
+                                        <!-- [selected]="selected" -->
+                                            <!-- <ngx-datatable-column name="No" prop="no" [flexGrow]="0.2"></ngx-datatable-column> -->
+                                            <ngx-datatable-column name = 'No' [flexGrow]='0.2'>
+                                                <ng-template let-column="column" ngx-datatable-header-template>
+                                                    <span class = 'ml--2'>No.</span>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name = 'Element Name' [flexGrow]='0.4'>
+                                                <ng-template let-column="column" ngx-datatable-header-template>
+                                                    <span class = 'ml--2'>Name</span>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Element Classification" [flexGrow]="0.8">
+                                                <ng-template let-column="column" ngx-datatable-header-template>
+                                                    <span class = 'ml--2'>Classification</span>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+                                            <ngx-datatable-column name="Value" [flexGrow]="0.6">
+                                                <ng-template let-column="column" ngx-datatable-header-template>
+                                                    <span class = 'ml--2'>Value</span>
+                                                </ng-template>
+                                                <ng-template let-column="column" ngx-datatable-cell-template
+                                                    let-row='tempEntries' let-value='tempEntries' let-rowIndex='rowIndex'>
+                                                    <!-- <span>Rp</span> -->
+                                                    <div class = 'd-flex justify-content-end pr-1'>{{ tempEntries[rowIndex].value }} </div>
+                                                </ng-template>
+                                            </ngx-datatable-column>
+
+                                            <ngx-datatable-footer>
+                                                 <ng-template
+                                                        ngx-datatable-footer-template
+                                                        let-rowCount="rowCount"
+                                                        let-pageSize="pageSize"
+                                                        let-selectedCount="selectedCount"
+                                                        let-curPage="curPage"
+                                                        let-offset="offset"
+                                                >
+                                                    <div style="padding: 5px 10px">
+                                                        <div>
+                                                            {{ rowCount }} Total Records
+                                                        </div>
+                                                    </div>
+                                                    <datatable-pager
+                                                            [pagerLeftArrowIcon]="'datatable-icon-left'"
+                                                            [pagerRightArrowIcon]="'datatable-icon-right'"
+                                                            [pagerPreviousIcon]="'datatable-icon-prev'"
+                                                            [pagerNextIcon]="'datatable-icon-skip'"
+                                                            [page]="curPage"
+                                                            [size]="pageSize"
+                                                            [count]="rowCount"
+                                                            (change)="tableBalance.onFooterPage($event)"
+                                                            [hidden]="!((rowCount / pageSize) > 1)"
+                                                            >
+                                                    </datatable-pager>
+                                                    
+                                                </ng-template>
+                                            </ngx-datatable-footer>
+                                        </ngx-datatable>
+                                        
+                        
+                                            <!-- <ng-http-loader 
+                                                [backgroundColor]="'#0070d2'"
+                                                spinner="sk-three-bounce">
+                                            </ng-http-loader>      -->
+                                    </div>   
+                                </div>  
+                            </div>
+                        </div>
+
+                        <div class=" modal-footer mt--5">
+                        <!-- <button class=" btn btn-primary" type="button" (click) = 'updateItem()' [disabled]='disabledButton'>
+                            Save changes
+                        </button> -->
+
+                        <button
+                            class="btn btn-link ml-auto"
+                            data-dismiss="modal"
+                            type="button"
+                            (click)="defaultModal.hide()"
+                        >
+                            Close
+                        </button>
+                        </div>
+                    </ng-template>
+                    <!--  -->
+              </div>
+            </div>
+            <div class = 'col-12 mt-5 text-right'>
+                <!-- <div class = 'row'> -->
+                    <!-- <div class = 'col-lg-5 ml-lg-5 text-right'> -->
+                        <!-- <button type = 'button' class = 'w-auto btn btn-danger'
+                             [disabled] = 'disabledSubmit' (click) = 'cancelBack()' >Cancel</button> -->
+                        <button type = 'button' class = 'btn btn-primary' *ngIf = 'status=="new"'
+                            [disabled]='disabledSubmit' (click) = 'submitProc()' >Submit</button>
+                    <!-- </div> -->
+                <!-- </div> -->
+            </div>
+        </div>
+        <!-- <ng-http-loader 
+            [backgroundColor]="'#0070d2'"
+            spinner="sk-three-bounce">
+        </ng-http-loader> -->
+    </form>
+    <!-- <div style = 'background:url("assets/img/brand/logo.png") no-repeat center / cover;width:200px
+            ;-webkit-box-reflect:below 2px linear-gradient(transparent,white);height:100px;'
+            >
+        good
+    </div> -->
+</div>

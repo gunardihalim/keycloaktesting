@@ -1,0 +1,112 @@
+<div class = 'container-fluid' @flyIn>
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>People Group Information</h2>
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-lg-6'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:180px'>Effective Date</div>
+                                        </div>
+                                        <input type="date"
+                                            class="form-control"
+                                            name = "effectiveDate"
+                                            ngModel
+                                            [(ngModel)] = 'modelEffectiveDate'
+                                            #effectiveDate = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:180px'>People Group Name</div>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control"
+                                            name = "peopleGroupName"
+                                            ngModel
+                                            [(ngModel)] = 'modelPeopleGroupName'
+                                            #peopleGroupName = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>                          
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-5 ml-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Active Status</div>
+                                        </div>
+                                        <input type="checkbox"
+                                            class="form-control ml--8"
+                                            name = "activeStatus"
+                                            ngModel
+                                            [(ngModel)] = 'modelActiveStatus'
+                                            #activeStatus = 'ngModel'
+                                            [readonly] = 'readOnlyInput'
+                                            style ='height:40px'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>                          
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:180px'>Description</div>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control"
+                                            name = "descriptionName"
+                                            ngModel
+                                            [(ngModel)] = 'modelDescriptionName'
+                                            #descriptionName = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>                          
+                            </div>
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+            
+            <div class = 'col-12 text-right'>
+                <!-- <div class = 'row'>
+                    <div class = 'col-lg-6'></div>
+                    <div class = 'col-lg-6 ml-lg-9'> -->
+                        <button type = 'button' class = 'w-25 btn btn-primary'
+                                >Submit</button>
+                    <!-- </div> -->
+                <!-- </div> -->
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,119 @@
+<style>
+    .btn-header {
+        margin-bottom: 0.7rem;
+        padding: 0.2rem 1.6rem;
+    }
+    .invalidError {
+        border-color: red;
+    }
+</style>
+<!-- <div class = 'container-fluid'> -->
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>Education Information</h2>
+                    </div>
+                    <div class = 'col-lg-7 text-right'>
+                        <button type = 'button' class = 'btn btn-danger btn-header'>Delete</button>
+                        <button type = 'button' class = 'btn btn-default btn-header'>History</button>
+                    </div>
+                    <div class="col-12">
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class="col-md-6">
+                        <div class = 'form-group'>
+                            <label for="educationName" class="form-control-label">Education Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "educationName"
+                                   id="educationName"
+                                   ngModel
+                                   [(ngModel)] = 'modelEducationName'
+                                   #educationName = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class = 'form-group'>
+                            <label for="levelOfEducation" class="form-control-label">Level of Education</label>
+                            <select
+                                    class="form-control"
+                                    name = "levelOfEducation"
+                                    ngModel
+                                    [(ngModel)] = 'modelLevelOfEducation'
+                                    #levelOfEducation = 'ngModel'
+                                    id='selectrLevelOfEducation'
+                                    data-toggle="select">
+                                <option *ngFor = 'let arrLevelEducation of arrLevelEducation'
+                                        [ngValue]="arrLevelEducation" [disabled]='readOnlyInputSelect'>{{arrLevelEducation}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class = 'form-group'>
+                            <label for="cityOfEducation" class="form-control-label">City of Education</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "cityOfEducation"
+                                   id="cityOfEducation"
+                                   ngModel
+                                   [(ngModel)] = 'modelCityOfEducation'
+                                   #cityOfEducation = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="faculty" class="form-control-label">Faculty</label>
+                            <input type = 'text'
+                                   class="form-control align-self-center"
+                                   name = "faculty"
+                                   id="faculty"
+                                   ngModel
+                                   [(ngModel)] = 'modelFaculty'
+                                   #faculty = 'ngModel'
+                                   [disabled] = 'readOnlyInputSelect'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="major" class="form-control-label">Major</label>
+                            <input type = 'text'
+                                   class="form-control align-self-center"
+                                   name = "major"
+                                   id="major"
+                                   ngModel
+                                   [(ngModel)] = 'modelMajor'
+                                   #major = 'ngModel'
+                                   [disabled] = 'readOnlyInputSelect'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class = 'form-group'>
+                            <label for="graduationDate" class="form-control-label">Graduation Date</label>
+                            <input type="text"
+                                   id="graduationDate"
+                                   [ngClass]="modelGraduationDate == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                   name = "graduationDate"
+                                   ngModel
+                                   bsDatepicker
+                                   [(ngModel)] = 'modelGraduationDate'
+                                   [bsValue] = 'modelGraduationDate'
+                                   #graduationDate = 'ngModel'
+                                   [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                   [readonly]='readOnlyInput'>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class = 'col-12 text-right'>
+                <button type = 'button' class = 'w-auto btn btn-primary'>Submit</button>
+            </div>
+        </div>
+    </form>
+<!-- </div> -->

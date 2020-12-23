@@ -1,0 +1,354 @@
+<style>
+    .btn-header {
+        margin-bottom: 0.7rem;
+        padding: 0.2rem 1.6rem;
+    }
+    .invalidError {
+        border-color: red;
+    }
+</style>
+<div class = 'container-fluid' *ngIf = '!aktif_error'>
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>General</h2>
+                    </div>
+                    <div class = 'col-lg-7 text-right'>
+                        <button type = 'button' class = 'btn btn-danger btn-header d-none'>Delete</button>
+                        <button type = 'button' class = 'btn btn-default btn-header d-none'>History</button>
+                    </div>
+                    <div class="col-12">
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label class = 'form-control-label' id = 'employee-number-id'> Employee Number </label>
+                                    <input type="text"
+                                            id = 'employee-number-id'
+                                            class="form-control"
+                                            name = "employeeNumber"
+                                            #employeeNumber
+                                            [value] = 'modelEmployeeNumber'
+                                            [readonly] = 'readOnlyInput'>
+                                    <!-- <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Employee Number</div>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control"
+                                            name = "employeeNumber"
+                                            ngModel
+                                            [(ngModel)] = 'modelEmployeeNumber'
+                                            #employeeNumber = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <span *ngIf = "!f.valid && f.touched"> Error </span>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label class = 'form-control-label' id = 'company-name-id'> Company Name </label>
+                                    <input type="text"
+                                            id = 'company-name-id'
+                                            class="form-control"
+                                            name = "companyName"
+                                            #companyName
+                                            [value] = 'modelCompanyName'
+                                            [readonly] = 'readOnlyInput'>
+                                    <!-- <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Company Name</div>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control"
+                                            name = "companyName"
+                                            ngModel
+                                            [(ngModel)] = 'modelCompanyName'
+                                            #companyName = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <span *ngIf = "!f.valid && f.touched"> Error </span>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-5 ml-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12 d-none'>
+                                <div class = 'form-group'>
+                                    <label class = 'form-control-label' id = 'enterprise-join-date-id'>Enterprise Join Date</label>
+                                    <input type="text"
+                                           id="enterprise-join-date-id"
+                                           [ngClass]="modelEnterpriseJoinDate == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                           name = "enterpriseJoinDate"
+                                           bsDatepicker
+                                           [bsValue] = 'modelEnterpriseJoinDate'
+                                           [value]='modelEnterpriseJoinDate | date:"dd-MMM-yyyy"'
+                                           #enterpriseJoinDate
+                                           [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                           [readonly]='readOnlyInput'>
+                                    <!-- <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:180px'>Enterprise Join Date</div>
+                                        </div>
+                                        <input type="date"
+                                            class="form-control"
+                                            name = "enterpriseJoinDate"
+                                            ngModel
+                                            [(ngModel)] = 'modelEnterpriseJoinDate'
+                                            #enterpriseJoinDate = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <span *ngIf = "!f.valid && f.touched"> Error </span>
+                                    </div> -->
+                                </div>                          
+                            </div>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label class = 'form-control-label' id = 'company-join-date-id'>Company Join Date</label>
+                                    <input type="text"
+                                           id="company-join-date-id"
+                                           [ngClass]="modelCompanyJoinDate == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                           name = "companyJoinDate"
+                                           bsDatepicker
+                                           [value]='modelCompanyJoinDate | date:"dd-MMM-yyyy"'
+                                           [bsValue] = 'modelCompanyJoinDate'
+                                           #companyJoinDate
+                                           [isDisabled]= 'readOnlyInput'
+                                           [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                           [readonly]='readOnlyInput'>
+                                    <!-- <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:180px'>Company Join Date</div>
+                                        </div>
+                                        <input type="date"
+                                            class="form-control"
+                                            name = "companyJoinDate"
+                                            ngModel
+                                            [(ngModel)] = 'modelCompanyJoinDate'
+                                            #companyJoinDate = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <span *ngIf = "!f.valid && f.touched"> Error </span>
+                                    </div> -->
+                                </div>                          
+                            </div>
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonText'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label class = 'form-control-label' id = 'termination-date-id'>Termination Date</label>
+                                    <input type="text"
+                                           id="termination-date-id"
+                                           [ngClass]="modelTerminationDate == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                           name = "terminationDate"
+                                           bsDatepicker
+                                           [value]='modelTerminationDate | date:"dd-MMM-yyyy"'
+                                           [bsValue] = 'modelTerminationDate'
+                                           #terminationDate
+                                           [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }">
+                                    <!-- <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Termination Date</div>
+                                        </div>
+                                        <input type="date"
+                                            class="form-control"
+                                            name = "terminationDate"
+                                            ngModel
+                                            [(ngModel)] = 'modelTerminationDate'
+                                            #terminationDate = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <span *ngIf = "!f.valid && f.touched"> Error </span>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3 d-none'>
+                                <div class = 'form-group'>
+                                    <label class = 'form-control-label' id = 'termination-reason-id'>Termination Reason</label>
+                                    <input type="text"
+                                            id = 'termination-reason-id'
+                                            class="form-control"
+                                            name = "terminateReason"
+                                            [value] = 'modelTerminateReason'
+                                            #terminateReason
+                                            [readonly] = 'readOnlyInput'>
+                                    <!-- <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Terminate Reason</div>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control"
+                                            name = "terminateReason"
+                                            ngModel
+                                            [(ngModel)] = 'modelTerminateReason'
+                                            #terminateReason = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <span *ngIf = "!f.valid && f.touched"> Error </span>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-12 d-none">
+                                <div class = 'form-group'>
+                                    <label for="maritalTaxStatus" class="form-control-label">Tax Type</label>
+                                    <ng-select2 id="maritalTaxStatus"
+                                                [value]="modelTaxStatus"
+                                                [data]="arrTaxTypeSelect2"></ng-select2>
+<!--                                    <select-->
+<!--                                            class="form-control"-->
+<!--                                            name = "taxType"-->
+<!--                                            [value] = 'modelMaritalTaxStatus'-->
+<!--                                            #taxType-->
+<!--                                            id='selectrTaxType'-->
+<!--                                            data-toggle="select">-->
+<!--                                        <option *ngFor = 'let arrTaxType of arrTaxType'-->
+<!--                                                [ngValue]="arrTaxType" [disabled]='readOnlyInputSelect'>{{arrTaxType}}</option>-->
+<!--                                    </select>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-5 ml-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12 d-none'>
+                                <div class = 'form-group'>
+                                    <label class = 'form-control-label' id = 'pay-thru-date-id'>Pay Thru Date</label>
+                                    <input type="text"
+                                           id="pay-thru-date-id"
+                                           [ngClass]="modelPayThruDate == 'Invalid Date' ? 'invalidError form-control' : 'form-control'"
+                                           name = "payThruDate"
+                                           bsDatepicker
+                                           [value] = 'modelPayThruDate | date:"dd-MMM-yyyy"'
+                                           [bsValue] = 'modelPayThruDate'
+                                           #payThruDate
+                                           [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                           [readonly]='readOnlyInput'>
+                                    <!-- <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Pay Thru Date</div>
+                                        </div>
+                                        <input type="date"
+                                            class="form-control"
+                                            name = "payThruDate"
+                                            ngModel
+                                            [(ngModel)] = 'modelPayThruDate'
+                                            #payThruDate = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <span *ngIf = "!f.valid && f.touched"> Error </span>
+                                    </div> -->
+                                </div>                          
+                            </div>
+                            <div class="col-12">
+                                <div class = 'form-group'>
+                                    <div class ='position-absolute w-100' style = 'z-index:3'
+                                        *ngIf='showSkeletonApiMaritalTaxStatus'>
+                                        <ngx-skeleton-loader animation="progress"
+                                                count = "1" [theme] = "{height:'24px',width:'135px'}">
+                                        </ngx-skeleton-loader>
+                                        <ngx-skeleton-loader animation="progress" [theme] = "{
+                                            'margin-top':'-9px',height:'46px'}">
+                                        </ngx-skeleton-loader>
+                                    </div>
+                                    <label for="maritalTaxStatus" class="form-control-label">Marital Tax Status</label>
+                                    <ng-select2 id="maritalTaxStatus"
+                                                [value]="modelMaritalTaxStatus"
+                                                [data]="arrMaritalTaxStatusSelect2"
+                                                (valueChanged)="procChange($event)">
+                                    </ng-select2>
+<!--                                    <select-->
+<!--                                            class="form-control"-->
+<!--                                            name = "maritalTaxStatus"-->
+<!--                                            [value] = 'modelMaritalTaxStatus'-->
+<!--                                            #maritalTaxStatus-->
+<!--                                            id='selectrMaritalTaxStatus'-->
+<!--                                            data-toggle="select">-->
+<!--                                        <option *ngFor = 'let arrMaritalTax of arrMaritalTaxStatus'-->
+<!--                                                [ngValue]="arrMaritalTax" [disabled]='readOnlyInputSelect'>{{arrMaritalTax}}</option>-->
+<!--                                    </select>-->
+                                </div>
+                            </div>
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+            <div class = 'col-12 text-right'>
+<!--                <button type = 'button' class = 'btn btn-danger' (click) = 'backCancel()'>Cancel</button>-->
+                <div class ='position-absolute w-100 ml--4' style = 'z-index:3;'
+                    *ngIf="showSkeletonText">
+                    <ngx-skeleton-loader animation="progress"
+                            count = "1" [theme] = "{height:'44px',width:'100px'}">
+                    </ngx-skeleton-loader>
+                </div>
+                <button type = 'button' class = 'w-auto btn btn-primary' (click)="submitProc()">Submit</button>
+            </div>
+        </div>
+        <ng-http-loader 
+            [backgroundColor]="'#0070d2'"
+            spinner="sk-three-bounce">
+        </ng-http-loader>
+    </form>
+</div>
+
+<div class = 'container-fluid' *ngIf = 'aktif_error'>
+    <router-outlet></router-outlet>
+</div>

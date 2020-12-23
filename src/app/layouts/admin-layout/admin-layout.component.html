@@ -1,0 +1,18 @@
+<!-- Sidenav -->
+<div class="" (window:resize)="isMobile($event)">
+  <app-sidebar
+    [ngClass]="{ 'sidenav fixed-left': isMobileResolution === false }"
+  ></app-sidebar>
+  <div class="main-content">
+    <!-- Top navbar -->
+    <div class = 'ml--1'>
+      <app-navbar></app-navbar>
+    <!-- Pages -->
+    <router-outlet></router-outlet>
+    <div class = 'mt-3'>
+      <app-footer></app-footer>
+    </div>
+    </div>
+  </div>
+  
+</div>

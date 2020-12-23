@@ -1,0 +1,35 @@
+<!-- Usage : arrBreadCrumb => array data of breadcrumb (eg : Employee > Personal) -->
+<!-- backTableMainMenu => output (eg : 'Employee' or 'Personal') -->
+<!-- <global-breadcrumb-component (backTableMainMenu) = "backTable($event)"
+      [arrBreadCrumb]="arrBreadCrumb">
+  </global-breadcrumb-component> -->
+
+<div class=" container-fluid bg-gradient-info">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0"><i class=" fas fa-home"> </i></h6>
+  
+            <nav aria-label="breadcrumb"
+              class=" d-none d-md-inline-block ml-md-4">
+              <ol class=" breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class = "breadcrumb-item"
+                  *ngFor = "let arrBreadCrumb of arrBreadCrumb; let i=index">
+                  <a style="cursor: pointer;" (click)='backTable(arrBreadCrumb)'> {{ titleCase(arrBreadCrumb) }} </a>
+                </li>
+                <!-- <li class=" breadcrumb-item">
+                    <a style="cursor: pointer;" (click)='backTable()'> {{ mainMenu }} </a>
+                </li>                
+                <li class=" breadcrumb-item" *ngIf="urlEndParse.toLowerCase() != mainMenu.toLowerCase()">
+                    <a href="javascript:void(0)"  (click)="backTableChildren()"> {{ titleCase(urlEndParse) }} </a>
+                </li> -->
+              </ol>
+            </nav>
+          </div>
+        </div>
+     </div> 
+</div>
+
+
+                  <!-- <a (click)="backTable()" style="cursor: pointer;"> Employee </a> -->
+                  

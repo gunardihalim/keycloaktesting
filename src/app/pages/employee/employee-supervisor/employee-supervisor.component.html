@@ -1,0 +1,92 @@
+<style>
+    .btn-header {
+        margin-bottom: 0.7rem;
+        padding: 0.2rem 1.6rem;
+    }
+</style>
+<div class = 'container-fluid' *ngIf = '!aktif_error'>
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>Supervisor Information</h2>
+                    </div>
+                    <div class = 'col-lg-7 text-right'>
+                        <button type = 'button' class = 'btn btn-danger btn-header d-none'>Delete</button>
+                        <button type = 'button' class = 'btn btn-default btn-header d-none'>History</button>
+                    </div>
+                    <div class="col-12">
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class="col-md-6">
+                        <div class = 'form-group'>
+                            <label for="lineManager" class="form-control-label">Line Manager</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "lineManager"
+                                   id="lineManager"
+                                   ngModel
+                                   [(ngModel)] = 'modelLineManager'
+                                   #lineManager = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="lineManagerNo" class="form-control-label">Line Manager No</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "lineManagerNo"
+                                   id="lineManagerNo"
+                                   ngModel
+                                   [(ngModel)] = 'modelLineManagerNo'
+                                   #lineManagerNo = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="matrixManager" class="form-control-label">Matrix Manager</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "matrixManager"
+                                   id="matrixManager"
+                                   ngModel
+                                   [(ngModel)] = 'modelMatrixManager'
+                                   #matrixManager = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class = 'form-group'>
+                            <label for="matrixManagerNo" class="form-control-label">Matrix Manager No</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name = "matrixManagerNo"
+                                   id="matrixManagerNo"
+                                   ngModel
+                                   [(ngModel)] = 'modelMatrixManagerNo'
+                                   #matrixManagerNo = 'ngModel'
+                                   [readonly] = 'readOnlyInput'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = 'col-12 text-right'>
+                <button type = 'button' class = 'w-auto btn btn-primary d-none'>Submit</button>
+            </div>
+        </div>
+        <ng-http-loader 
+            [backgroundColor]="'#0070d2'"
+            spinner="sk-three-bounce">
+        </ng-http-loader>
+    </form>
+</div>
+
+<div class = 'container-fluid' *ngIf = 'aktif_error'>
+    <router-outlet></router-outlet>
+</div>

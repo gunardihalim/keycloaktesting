@@ -1,0 +1,485 @@
+<div class=" header pb-6">
+    <div class=" container-fluid bg-gradient-info pb-5">
+        <div class=" header-body">
+            <div class=" row align-items-center py-4">
+                <div class=" col-lg-6 col-7">
+                    <h6 class=" h2 text-white d-inline-block mb-0"><i class=" fas fa-home"> </i></h6>
+
+                    <nav aria-label="breadcrumb"
+                         class=" d-none d-md-inline-block ml-md-4">
+                        <ol class=" breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class=" breadcrumb-item">
+                                <a href="javascript:void(0)"> Dashboards </a>
+                            </li>
+
+                            <li class=" breadcrumb-item">
+                                <a href="javascript:void(0)" style="cursor: pointer;"> {{ urlEndParse }} </a>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <!-- <div class=" col-lg-6 col-5 text-right">
+                  <a class=" btn btn-sm btn-neutral" href="javascript:void(0)"> New </a>
+
+                  <a class=" btn btn-sm btn-neutral" href="javascript:void(0)">
+                    Filters
+                  </a>
+                </div> -->
+            </div>
+
+
+            <div class = 'row justify-content-center'>
+                <div class="col-lg-4" *ngIf='showSkeletonLeave'>
+                    <div style = 'height:200px;z-index:2;background-color:lightgray' class = 'card card-stats'>
+                        <div class=" card-body">
+                          <div class=" row justify-content-center">
+                            <div class=" col-auto">
+                              <ngx-skeleton-loader animation="progress-dark"
+                                [theme]="{'border-radius':'50%',width:'60px',height:'60px'}">
+                              </ngx-skeleton-loader>
+                              <!-- <div class=" icon icon-shape bg-gradient-red text-white rounded-right shadow"> -->
+                                <!-- <i class = 'fa fa-users'></i> -->
+                              <!-- </div> -->
+                            </div>
+                            <div class=" col text-center mt-2">
+                              <h5 class=" card-title text-capitalize text-muted font-weight-bold text-xl mb-0 ml--5">
+                                <ngx-skeleton-loader animation="progress-dark"
+                                  [theme]="{width:'70px',height:'30px'}">
+                                </ngx-skeleton-loader>
+                                <!-- Total -->
+                              </h5>
+            
+                              <div class = 'mt-4 pb-0 text-center'>
+                                <ngx-skeleton-loader animation="progress-dark" class = 'ml--5'
+                                  [theme]="{width:'120px',height:'50px'}">
+                                </ngx-skeleton-loader>
+                                <!-- <div class="h2 font-weight-bold mb-0 ml--5" style = 'font-size:40px'>
+                                  {{totalEmp | number  }}</div> -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" *ngIf='showSkeletonPermission'>
+                    <div style = 'height:200px;z-index:2;background-color:lightgray' class = 'card card-stats'>
+                        <div class=" card-body">
+                          <div class=" row justify-content-center">
+                            <div class=" col-auto">
+                              <ngx-skeleton-loader animation="progress-dark"
+                                [theme]="{'border-radius':'50%',width:'60px',height:'60px'}">
+                              </ngx-skeleton-loader>
+                              <!-- <div class=" icon icon-shape bg-gradient-red text-white rounded-right shadow"> -->
+                                <!-- <i class = 'fa fa-users'></i> -->
+                              <!-- </div> -->
+                            </div>
+                            <div class=" col text-center mt-2">
+                              <h5 class=" card-title text-capitalize text-muted font-weight-bold text-xl mb-0 ml--5">
+                                <ngx-skeleton-loader animation="progress-dark"
+                                  [theme]="{width:'70px',height:'30px'}">
+                                </ngx-skeleton-loader>
+                                <!-- Total -->
+                              </h5>
+            
+                              <div class = 'mt-4 pb-0 text-center'>
+                                <ngx-skeleton-loader animation="progress-dark" class = 'ml--5'
+                                  [theme]="{width:'120px',height:'50px'}">
+                                </ngx-skeleton-loader>
+                                <!-- <div class="h2 font-weight-bold mb-0 ml--5" style = 'font-size:40px'>
+                                  {{totalEmp | number  }}</div> -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4" *ngIf='showSkeletonSick'>
+                    <div style = 'height:200px;z-index:2;background-color:lightgray' class = 'card card-stats'>
+                        <div class=" card-body">
+                          <div class=" row justify-content-center">
+                            <div class=" col-auto">
+                              <ngx-skeleton-loader animation="progress-dark"
+                                [theme]="{'border-radius':'50%',width:'60px',height:'60px'}">
+                              </ngx-skeleton-loader>
+                              <!-- <div class=" icon icon-shape bg-gradient-red text-white rounded-right shadow"> -->
+                                <!-- <i class = 'fa fa-users'></i> -->
+                              <!-- </div> -->
+                            </div>
+                            <div class=" col text-center mt-2">
+                              <h5 class=" card-title text-capitalize text-muted font-weight-bold text-xl mb-0 ml--5">
+                                <ngx-skeleton-loader animation="progress-dark"
+                                  [theme]="{width:'70px',height:'30px'}">
+                                </ngx-skeleton-loader>
+                                <!-- Total -->
+                              </h5>
+            
+                              <div class = 'mt-4 pb-0 text-center'>
+                                <ngx-skeleton-loader animation="progress-dark" class = 'ml--5'
+                                  [theme]="{width:'120px',height:'50px'}">
+                                </ngx-skeleton-loader>
+                                <!-- <div class="h2 font-weight-bold mb-0 ml--5" style = 'font-size:40px'>
+                                  {{totalEmp | number  }}</div> -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = 'col-lg-4' *ngIf='!showSkeletonLeave'>
+                    <div class=" card card-stats" style = 'height:200px;background-color:seashell;
+                        background:url("assets/img/theme/white-background-with-blue-tech-hexagon.jpg") no-repeat center / cover'>
+                        <div class=" card-body">
+                            <div class=" row justify-content-center">
+                                <div
+                                        class="icon icon-shape bg-gradient-orange text-white rounded-right shadow"
+                                >
+                                    <i class=" fa fa-sign-out-alt"> </i>
+                                    <!-- <i class=" ni ni-calendar-grid-58"> </i> -->
+                                </div>
+                                <div class=" col-9 text-center pb-4 ml-0">
+                                    <h5 class=" card-title text-wrap text-capitalize font-weight-bold text-xl text-muted mb-0
+                                ml--4">
+                                        Leave
+                                    </h5>
+                                    <div class = 'mt-4 pb-0 text-center'>
+                                        <div class="font-weight-bold mb-0 ml--4" style = 'font-size:40px'>{{totalLeave | number  }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = 'col-lg-4' *ngIf='!showSkeletonPermission'>
+                    <!-- box-shadow:1px 1px 10px 5px lightsteelblue; -->
+                    <div class=" card card-stats" style = 'height:200px;background-color:seashell;
+                        background:url("assets/img/theme/white-background-with-blue-tech-hexagon.jpg") no-repeat center / cover'>
+                        <div class=" card-body">
+                            <div class=" row justify-content-center">
+                                <div
+                                        class="icon icon-shape bg-gradient-info text-white rounded-right shadow"
+                                >
+                                    <i class=" fa fa-clipboard-check"> </i>
+                                    <!-- <i class=" ni ni-check-bold"> </i> -->
+                                </div>
+                                <div class=" col-9 text-center pb-4">
+                                    <h5 class=" card-title text-wrap text-capitalize font-weight-bold text-xl text-muted mb-0
+                                ml--4">
+                                        Permission
+                                    </h5>
+                                    <div class = 'mt-4 pb-0 text-center'>
+                                        <div class="font-weight-bold mb-0 ml--4" style = 'font-size:40px'>{{totalPermission | number  }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = 'col-lg-4' *ngIf='!showSkeletonSick'>
+                    <!-- box-shadow:1px 1px 10px 5px lightsteelblue; -->
+                    <div class=" card card-stats" style = 'height:200px;background-color:seashell;
+                        background:url("assets/img/theme/white-background-with-blue-tech-hexagon.jpg") no-repeat center / cover'>
+                        <div class=" card-body">
+                            <div class=" row justify-content-center">
+                                <div
+                                        class="icon icon-shape bg-gradient-danger text-white rounded-right shadow"
+                                >
+                                    <!-- <i class="fas fa-hospital-user"> </i> -->
+                                    <i class="ni ni-ambulance"> </i>
+                                </div>
+                                <div class=" col-9 text-center pb-4">
+                                    <h5 class=" card-title text-wrap text-capitalize font-weight-bold text-xl text-muted mb-0
+                                ml--4">
+                                        Sick
+                                    </h5>
+                                    <div class = 'mt-4 pb-0 text-center'>
+                                        <div class="font-weight-bold mb-0 ml--4" style = 'font-size:40px'>{{totalSick | number  }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class = 'container-fluid mt--8'>
+    <div class = 'row justify-content-center'>
+        <!-- Pindah Ke Bawah -->
+        <div class = 'col-lg-4'>
+            <div class = 'card position-absolute' style = 'height:280px;width:95%; 
+                  background-color:lightgray;z-index:3' *ngIf = 'showSkeletonTodayCheckIn'>
+                <div class = 'card-header bg-transparent'>
+                    <div class=" row">
+                        <div class=" col text-center">
+                            <!-- <h6 class=" text-light text-uppercase ls-1 mb-1">Overview</h6> -->
+
+                            <ngx-skeleton-loader animation="progress-dark" [theme]="{width:'150px'}">
+                            </ngx-skeleton-loader>
+                        </div>
+                    </div>
+                </div>
+                <div class = 'card-body d-flex justify-content-center mt--5'>
+                    <div class = 'row'>
+                      <div class = 'col-12 d-flex justify-content-center'>
+                        <div>
+                          <ngx-skeleton-loader animation="progress-dark" [theme]="{'border-radius':'50%',
+                              width:'160px',height:'160px'}">
+                          </ngx-skeleton-loader>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" card bg-default" style = 'height:280px'>
+                <div class=" card-header bg-transparent">
+                    <div class=" row">
+                        <div class=" col text-center">
+                            <!-- <h6 class=" text-light text-uppercase ls-1 mb-1">Overview</h6> -->
+
+                            <h5 class=" h3 text-white text-lg mb-0 mt--3 pb-3">Today Check In</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" card-body">
+                    <div class = 'row'>
+                        <div class = 'col'>
+                            <!--                    <div *ngIf="totalCheckIn.length > 0; else template_nodata_checkin">-->
+                            <div *ngIf="totalCheckIn.length > 0; else template_nodata_checkin" class=" chart mt--5" style = 'height:230px'>
+                                <canvas class=" chart-canvas" id="chart-today-checkin"> </canvas>
+                            </div>
+                            <!--                    </div>-->
+                            <ng-template #template_nodata_checkin>
+                                <div class="text-center my-auto text-white text-lg">
+                                    No Data Available
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" col-lg-4" *ngIf='showSkeletonTotalAbsenceThisMonth'>
+            <div class=" card card-stats" style = 'height:280px;background-color:lightgray'>
+                <div class=" card-body">
+                    <div class=" row justify-content-center">
+                        <div class=" col-9 text-left pb-4">
+                            <ngx-skeleton-loader animation="progress-dark" [theme]="{width:'100px'}">
+                            </ngx-skeleton-loader>
+                        </div>
+
+                        <div class=" col-3 text-right">
+                            <ngx-skeleton-loader animation="progress-dark"
+                                [theme]="{'border-radius':'50%',width:'60px',height:'60px'}">
+                            </ngx-skeleton-loader>
+                        </div>
+                    </div>
+                    <div class = 'row'>
+                        <div class = 'col'>
+                            <div class = 'pb-0 text-center'>
+                                <ngx-skeleton-loader animation="progress-dark" [theme]="{width:'100px'}">
+                                </ngx-skeleton-loader>
+                            </div>
+                            <div class = 'mt-4 pb-0 text-center'>
+                                <div class="font-weight-bold text-lg mb-0">
+                                    <ngx-skeleton-loader animation="progress-dark" [theme]="{width:'100px'}">
+                                    </ngx-skeleton-loader>
+                                </div>
+                            </div>
+                            <div class = 'mt-4 pb-0 text-center'>
+                                <div class="font-weight-normal text-lg mb-0">
+                                    <ngx-skeleton-loader animation="progress-dark" [theme]="{width:'100px'}">
+                                    </ngx-skeleton-loader>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <p class=" mt-3 mb-0 text-sm">
+                      <span class=" text-success mr-2">
+                        <i class=" fa fa-arrow-up"> </i> 3.48%
+                      </span>
+
+                      <span class=" text-nowrap"> Since last month </span>
+                    </p> -->
+                </div>
+            </div>
+        </div>
+        <div class=" col-lg-4" *ngIf='!showSkeletonTotalAbsenceThisMonth'>
+            <div class=" card card-stats bg-default" style = 'height:280px'>
+                <div class=" card-body">
+                    <div class=" row justify-content-center">
+                        <div class=" col-9 text-left pb-4">
+                            <h5 class=" card-title text-wrap text-capitalize text-white font-weight-bold text-lg mb-0">
+                                Total Absence This Month
+                            </h5>
+                        </div>
+
+                        <div class=" col-3 text-right">
+                            <div
+                                    class=" icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                <i class="fa fa-user-clock"> </i>
+                                <!-- <i class="ni ni-collection"> </i> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'row'>
+                        <div class = 'col'>
+                            <div class = 'pb-0 text-center'>
+                                <div class="font-weight-normal text-white mb-0" style = 'font-size:40px'>{{thisMonth | number  }}</div>
+                            </div>
+                            <div class = 'mt-4 pb-0 text-center'>
+                                <div class="font-weight-bold text-lg mb-0">
+                                    <span [class] = 'icon_arrow'></span>
+                                    <span [class] = 'icon_percent'>{{percentage}}%</span>
+                                </div>
+                            </div>
+                            <div class = 'mt-4 pb-0 text-center'>
+                                <div class="font-weight-normal text-lg mb-0">
+                                    <span class = 'text-light'>Since last month</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <p class=" mt-3 mb-0 text-sm">
+                      <span class=" text-success mr-2">
+                        <i class=" fa fa-arrow-up"> </i> 3.48%
+                      </span>
+
+                      <span class=" text-nowrap"> Since last month </span>
+                    </p> -->
+                </div>
+            </div>
+        </div>
+        <div class = 'col-lg-4'>
+            <div class='card position-relative d-inline-block w-100' style='z-index:4;' *ngIf='showSkeletonTop5AbsenceEmployee'>
+                <div class = 'card-header text-center pb-0' style = 'background-color: lightgray;'>
+                  <ngx-skeleton-loader animation="progress-dark"
+                    [theme]="{width:'300px',height:'30px'}">
+                  </ngx-skeleton-loader>
+                </div>
+                <div class = 'card-body' style = 'height:280px;background-color: lightgray;'>
+                  <div class = 'row'>
+                    <div class = 'col-2'>
+                      <ngx-skeleton-loader animation="progress-dark"
+                        [theme]="{'border-radius':'50%',width:'60px',height:'60px'}">
+                      </ngx-skeleton-loader>
+                    </div>
+                    <div class = 'col'>
+                      <div>
+                        <ngx-skeleton-loader animation="progress-dark" 
+                          [theme]="{width:'270px',height:'20px'}">
+                        </ngx-skeleton-loader>
+                      </div>
+                      <div class = 'mt--1'>
+                        <ngx-skeleton-loader animation="progress-dark" 
+                          [theme]="{width:'140px',height:'20px'}">
+                        </ngx-skeleton-loader>
+                      </div>
+                    </div>
+                  </div>
+                  <div class = 'row'>
+                    <div class = 'col-2'>
+                      <ngx-skeleton-loader animation="progress-dark"
+                        [theme]="{'border-radius':'50%',width:'60px',height:'60px'}">
+                      </ngx-skeleton-loader>
+                    </div>
+                    <div class = 'col'>
+                      <div>
+                        <ngx-skeleton-loader animation="progress-dark" 
+                          [theme]="{width:'270px',height:'20px'}">
+                        </ngx-skeleton-loader>
+                      </div>
+                      <div class = 'mt--1'>
+                        <ngx-skeleton-loader animation="progress-dark" 
+                          [theme]="{width:'140px',height:'20px'}">
+                        </ngx-skeleton-loader>
+                      </div>
+                    </div>
+                  </div>
+                  <div class = 'row'>
+                    <div class = 'col-2'>
+                      <ngx-skeleton-loader animation="progress-dark"
+                        [theme]="{'border-radius':'50%',width:'60px',height:'60px'}">
+                      </ngx-skeleton-loader>
+                    </div>
+                    <div class = 'col'>
+                      <div>
+                        <ngx-skeleton-loader animation="progress-dark" 
+                          [theme]="{width:'270px',height:'20px'}">
+                        </ngx-skeleton-loader>
+                      </div>
+                      <div class = 'mt--1'>
+                        <ngx-skeleton-loader animation="progress-dark" 
+                          [theme]="{width:'140px',height:'20px'}">
+                        </ngx-skeleton-loader>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class=" card" *ngIf='!showSkeletonTop5AbsenceEmployee'>
+                <div class=" card-header text-center">
+                    <h5 class=" h3 mb-0">Top 5 Absence Employee</h5>
+                </div>
+                <div class=" card-body">
+                    <div *ngIf="topAbsence.length > 0; else template_nodata">
+                        <ul class=" list-group list-group-flush list my--3">
+                            <li class=" list-group-item px-0" *ngFor = 'let topAbsence of topAbsence'>
+                                <div class=" row align-items-center">
+                                    <div class=" col-auto">
+                                        <a class=" avatar rounded-circle" href="javascript:void(0)">
+                                            <!-- <span class = 'fa fa-user-alt text-xl'></span> -->
+                                            <img [src] = "topAbsence.employeeProfile" height = "50"
+                                                 *ngIf = "topAbsence.employeeProfile != null"
+                                                 class = 'fa fa-user-alt text-xl text-center' />
+
+                                            <span class = 'fa fa-user-alt text-xl text-center'
+                                                  *ngIf = "topAbsence.employeeProfile == null"> </span>
+
+                                        </a>
+                                    </div>
+
+                                    <div class=" col ml--2">
+                                        <h4 class=" mb-0">
+                                            <a href="javascript:void(0)"> {{ topAbsence.fullName }}</a>
+                                        </h4>
+                                        <small> {{ topAbsence.totalAbsen }} Days </small>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <ng-template #template_nodata>
+                        <div class="text-center my-auto">
+                            No Data Available
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class = 'container-fluid'>
+        <div class = 'row justify-content-center'>
+            <div class = 'col-lg-5'>
+
+            </div>
+        </div>
+    </div>
+    <!-- <div class = 'row'>
+      <div class = 'col form-group'>
+          <form #f = 'ngForm'>
+            <input type = 'file' name = 'file' class = 'form-control'
+              (change) = 'target_file($event)' #fileInput>
+            <input type = 'file' name = 'file2' class = 'form-control'
+              (change) = 'target_file2($event)' #file2>
+            <button type = 'button' (click) = 'cobalagi()'>Click</button>
+            <img [src] = 'parsing_gambar'>
+          </form>
+      </div>
+    </div> -->
+</div>
+

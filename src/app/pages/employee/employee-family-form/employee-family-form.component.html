@@ -1,0 +1,369 @@
+<!-- <div class = 'container-fluid' @flyIn> -->
+    <form #f='ngForm'>
+        <div class = 'row p-3' style = 'background-color:white;box-shadow:1px 1px 6px 1px grey
+                    ;border-radius:20px'>
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col'>
+                        <h2>Family Information</h2>
+                        <hr class = 'mt--1' style = 'border:1px solid lightsteelblue'>
+                    </div>
+                    <div class = 'col-lg-7 text-center'>
+                        <button type = 'button' class = 'btn btn-danger'>Delete</button> 
+                        <button type = 'button' class = 'btn btn-default'>History</button> 
+                    </div>
+                </div>
+                <div class = 'row'>
+                    <div class = 'col-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Family Name</div>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control"
+                                            name = "familyName"
+                                            ngModel
+                                            [(ngModel)] = 'modelFamilyName'
+                                            #familyName = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'row'>
+                                        <div class = 'col-lg-5'>
+                                            <div class = 'input-group input-group-md'>
+                                                <div class = 'input-group-prepend'>
+                                                    <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                                    <div class = 'input-group-text font-weight-normal'
+                                                            style = 'color:grey;font-family:Helvetica;width:150px'>Gender</div>
+                                                </div>
+                                            </div>        
+                                        </div>
+                                        <div class = 'col-lg-7'>
+                                            <select
+                                                class="form-control"
+                                                name = "gender"
+                                                ngModel
+                                                [(ngModel)] = 'modelGender'
+                                                #gender = 'ngModel'
+                                                id='selectrGender' 
+                                                data-toggle="select">
+                                                <option *ngFor = 'let arrGender of arrGender'
+                                                    [ngValue]="arrGender" [disabled]='readOnlyInputSelect'>{{arrGender}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Profession</div>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control"
+                                            name = "profession"
+                                            ngModel
+                                            [(ngModel)] = 'modelProfession'
+                                            #profession = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'row'>
+                                    <div class="col-lg-5">
+                                        <div class = 'input-group input-group-md'>
+                                            <div class = 'input-group-prepend'>
+                                                <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                                <div class = 'input-group-text font-weight-normal'
+                                                        style = 'color:grey;font-family:Helvetica;width:150px'>Relationship</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <select
+                                            class="form-control"
+                                            name = "relationship"
+                                            ngModel
+                                            [(ngModel)] = 'modelRelationship'
+                                            #relationship = 'ngModel'
+                                            id='selectrRelationship'>
+                                            <option ngValue = 'Spouse' [disabled]='readOnlyInputSelect'>Spouse</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt-2'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Place of Birth</div>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control"
+                                            name = "placeOfBirth"
+                                            ngModel
+                                            [(ngModel)] = 'modelPlaceOfBirth'
+                                            #placeOfBirth = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Date of Birth</div>
+                                        </div>
+                                        <input type="date"
+                                            class="form-control"
+                                            name = "dateOfBirth"
+                                            ngModel
+                                            [(ngModel)] = 'modelDateOfBirth'
+                                            #dateOfBirth = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Decease Date</div>
+                                        </div>
+                                        <input type="date"
+                                            class="form-control"
+                                            name = "deceaseDate"
+                                            ngModel
+                                            [(ngModel)] = 'modelDeceaseDate'
+                                            #deceaseDate = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:150px'>Medical</div>
+                                        </div>
+                                        <input type="checkbox"
+                                            class="form-control align-self-center ml-lg--8"
+                                            style = 'height:30px'
+                                            name = "medical"
+                                            ngModel
+                                            [(ngModel)] = 'modelMedical'
+                                            #medical = 'ngModel'
+                                            [disabled]='readOnlyInputSelect'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = 'col-lg-6 ml-lg-5'>
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <div class = 'row'>
+                                    <div class = 'col-lg-6'>
+                                        <div class = 'input-group input-group-md'>
+                                            <div class = 'input-group-prepend'>
+                                                <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                                <div class = 'input-group-text font-weight-normal'
+                                                        style = 'color:grey;font-family:Helvetica;width:180px'>Blood Type</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class = 'col-lg-6 ml-lg--5'>
+                                        <div class = 'form-group'>
+                                            <select
+                                                class="form-control align-self-center"
+                                                name = "bloodType"
+                                                ngModel
+                                                [(ngModel)] = 'modelBloodType'
+                                                #bloodType = 'ngModel'
+                                                [disabled] = 'readOnlyInputSelect'
+                                                id = 'selectrBloodType'>
+                                                <option [ngValue]='arrBloodType' *ngFor = 'let arrBloodType of arrBloodType'>
+                                                    {{ arrBloodType }} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>                        
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'row'>
+                                    <div class = 'col-lg-6'>
+                                        <div class = 'input-group input-group-md'>
+                                            <div class = 'input-group-prepend'>
+                                                <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                                <div class = 'input-group-text font-weight-normal'
+                                                        style = 'color:grey;font-family:Helvetica;width:180px'>Last Education</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class = 'col-lg-6 ml-lg--5'>
+                                        <div class = 'form-group'>
+                                            <select
+                                                class="form-control align-self-center"
+                                                name = "lastEducation"
+                                                ngModel
+                                                [(ngModel)] = 'modelLastEducation'
+                                                #lastEducation = 'ngModel'
+                                                [disabled] = 'readOnlyInputSelect'
+                                                id = 'selectrLastEducation'>
+                                                <option [ngValue]='arrLastEducation' *ngFor = 'let arrLastEducation of arrLastEducation'>
+                                                    {{ arrLastEducation }} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>                        
+                            </div>
+                            <div class = 'col-12 mt--3'>
+                                <div class = 'row'>
+                                    <div class = 'col-lg-6'>
+                                        <div class = 'input-group input-group-md'>
+                                            <div class = 'input-group-prepend'>
+                                                <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                                <div class = 'input-group-text font-weight-normal'
+                                                        style = 'color:grey;font-family:Helvetica;width:180px'>Marital Status</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class = 'col-lg-6 ml-lg--5'>
+                                        <div class = 'form-group'>
+                                            <select
+                                                class="form-control align-self-center"
+                                                name = "maritalStatus"
+                                                ngModel
+                                                [(ngModel)] = 'modelMaritalStatus'
+                                                #maritalStatus = 'ngModel'
+                                                [disabled] = 'readOnlyInputSelect'
+                                                id = 'selectrMaritalStatus'>
+                                                <option [ngValue]='arrMaritalStatus' *ngFor = 'let arrMaritalStatus of arrMaritalStatus'>
+                                                    {{ arrMaritalStatus }} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>                        
+                            </div>
+
+
+                            <div class = 'col-11 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:180px'>Married Date</div>
+                                        </div>
+                                        <input type="date"
+                                            class="form-control"
+                                            name = "marriedDate"
+                                            ngModel
+                                            [(ngModel)] = 'modelMarriedDate'
+                                            #marriedDate = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>                          
+                            </div>
+                            <div class = 'col-11 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:180px'>Divorce Date</div>
+                                        </div>
+                                        <input type="date"
+                                            class="form-control"
+                                            name = "divorceDate"
+                                            ngModel
+                                            [(ngModel)] = 'modelDivorceDate'
+                                            #divorceDate = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>                          
+                            </div>
+                            <div class = 'col-11 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:180px'>Phone Number</div>
+                                        </div>
+                                        <input type="text"
+                                            class="form-control"
+                                            name = "phoneNumber"
+                                            ngModel
+                                            [(ngModel)] = 'modelPhoneNumber'
+                                            #phoneNumber = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>                          
+                            </div>
+                            <div class = 'col-11 mt--3'>
+                                <div class = 'form-group'>
+                                    <div class = 'input-group input-group-md'>
+                                        <div class = 'input-group-prepend'>
+                                            <!-- -webkit-text-fill-color:darkcyan; -webkit-text-stroke:0.5px black-->
+                                            <div class = 'input-group-text font-weight-normal'
+                                                    style = 'color:grey;font-family:Helvetica;width:180px'>Emergency Contact</div>
+                                        </div>
+                                        <input type="checkbox"
+                                            class="form-control align-self-center ml-lg--8"
+                                            style = 'height:30px'
+                                            name = "emergencyContact"
+                                            ngModel
+                                            [(ngModel)] = 'modelEmergencyContact'
+                                            #emergencyContact = 'ngModel'
+                                            [readonly] = 'readOnlyInput'>
+                                            <!-- <span *ngIf = "!f.valid && f.touched"> Error </span> -->
+                                    </div>
+                                </div>                          
+                            </div>
+                        </div>                  
+                    </div>
+                </div>
+            </div> 
+            <div class = 'col-12'>
+                <div class = 'row'>
+                    <div class = 'col-lg-5'>
+                    </div>
+                    <div class = 'col-lg-5 ml-lg-5'>
+                        <button type = 'button' class = 'w-100 btn btn-primary'
+                            >Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+<!-- </div> -->

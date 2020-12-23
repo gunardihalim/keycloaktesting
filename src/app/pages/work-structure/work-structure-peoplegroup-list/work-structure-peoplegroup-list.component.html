@@ -1,0 +1,118 @@
+<div class=" header pb-6">
+    <div class=" container-fluid bg-gradient-info">
+      <div class=" header-body">
+        <div class=" row align-items-center py-4">
+          <div class=" col-lg-6 col-7">
+            <h6 class=" h2 text-white d-inline-block mb-0"><i class=" fas fa-home"> </i></h6>
+
+            <nav
+              aria-label="breadcrumb"
+              class=" d-none d-md-inline-block ml-md-4"
+            >
+              <ol class=" breadcrumb breadcrumb-links breadcrumb-dark">
+                <li class=" breadcrumb-item">
+                  <a href="javascript:void(0)"> Work Structure </a>
+                </li>
+
+                <li class=" breadcrumb-item">
+                  <a href="javascript:void(0)">{{ urlEndParse }}</a>
+                </li>
+
+                <li aria-current="page" class=" breadcrumb-item active">
+                  <!-- Default -->
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+    
+        <!-- <div class = 'row justify-content-center'>
+            <div class = 'col-lg-4'>
+            
+            </div>
+        </div> -->
+
+    </div> 
+</div>
+</div>
+
+<div class = 'container-fluid mt--5' *ngIf = 'aktif_table' @flyIn>
+    <div> </div>
+    <div class = 'row'>
+        <div class = 'col'>
+            <div class="dataTables_wrapper py-4"
+                style = 'box-shadow:1px 1px 6px 5px lightgrey;border-radius:10px'>
+                <div class="row">
+                  <div class="col-12 col-sm-3 col-md-3">
+                    <div class="dataTables_length" id="datatable_length">
+                      <label>
+                        Show
+                        <select
+                          name="datatable_length"
+                          aria-controls="datatable"
+                          class="form-control form-control-sm"
+                          (change)="entriesChange($event)"
+                        >
+                          <option value="10" [selected]="entries==10">10</option>
+                          <option value="25" [selected]="entries==25">25</option>
+                          <option value="50" [selected]="entries==50">50</option>
+                          <option value="-1" [selected]="entries==-1">All</option>
+                        </select>
+                        entries
+                        <button type = 'button' class = 'btn-custom btn-login btn-sm ml-3'>
+                          Create
+                        </button>
+                        </label>
+                    </div>                    
+                  </div>
+                  <div class="col-12 col-sm-8 ml-sm-5 col-md-7 ml--7 ml-md-9">
+                    <div id="datatable_filter" class="dataTables_filter">
+                      <label>
+                        <input
+                          type="search"
+                          class="form-control form-control-sm"
+                          placeholder="Search records"
+                          aria-controls="datatable"
+                          (keyup)="filterTable($event)"
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+            
+                <ngx-datatable
+                  id="print-section"
+                  class="bootstrap selection-cell"
+                  [columnMode]="'force'"
+                  [headerHeight]="50"
+                  [footerHeight]="50"
+                  [rowHeight]="'auto'"
+                  [limit]="entries != -1 ? entries:undefined"
+                  [rows]="temp"
+                  [selectionType] ="'single'" 
+                  (activate)="onActivate($event)"
+                  (select)="onSelect($event)"
+                  style = 'cursor:pointer'
+                >
+
+                <!-- selectionType = 'multiclick, cell, single' -->
+                <!-- [selected]="selected" -->
+                    <ngx-datatable-column name="Effective Date"></ngx-datatable-column>
+                    <ngx-datatable-column name="Active Status"></ngx-datatable-column>
+                    <ngx-datatable-column name="People Group Name"></ngx-datatable-column>
+                    <ngx-datatable-column name="Description"></ngx-datatable-column>
+                </ngx-datatable>
+                
+                    <ng-http-loader 
+                        [backgroundColor]="'#0070d2'"
+                        spinner="sk-three-bounce">
+                    </ng-http-loader>
+              </div>
+        </div>
+    </div>
+</div>
+
+
+<div class = 'container-fluid' *ngIf = '!aktif_table'>
+    <router-outlet></router-outlet>
+</div>
